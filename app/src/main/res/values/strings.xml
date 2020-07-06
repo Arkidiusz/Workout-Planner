@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">WorkoutPlanner</string>
+    <string name="main_title">Your Workouts:</string>
+    <string-array name="sample_workouts">
+        <item>FBW 1</item>
+        <item>FBW 2</item>
+    </string-array>
 </resources>
