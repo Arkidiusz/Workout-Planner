@@ -2,6 +2,7 @@ package com.example.workoutplanner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,7 +25,14 @@ public class PlanActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String workoutName = workoutNameET.getText().toString();
-                Toast.makeText(getApplicationContext(),"Workout " + workoutName + " saved.",Toast.LENGTH_SHORT).show();
+                if(!workoutName.isEmpty()){
+                    Workout workout = new Workout(workoutNameET.getText().toString(), null);
+                    Toast.makeText(getApplicationContext(),"Workout " + workoutName + " saved.",Toast.LENGTH_SHORT).show();
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra("workout", workout);
+                    setResult(AppCompatActivity.RESULT_OK, resultIntent);
+                }
+                finish();
             }
         });
     }

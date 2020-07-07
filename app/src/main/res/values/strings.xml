@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">WorkoutPlanner</string>
     <string name="main_title">Your Workouts:</string>
-    <string name="title_activity_plan">PlanActivity</string>
+    <string name="title_activity_plan">Plan Workout</string>
     <string name="workout_name">Workout Name</string>
     <string name="save_workout">Save Workout</string>
     <string name="add_exercise">Add Exercise</string>
