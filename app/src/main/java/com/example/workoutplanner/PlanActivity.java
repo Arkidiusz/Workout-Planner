@@ -12,7 +12,6 @@ import android.widget.Toast;
 public class PlanActivity extends AppCompatActivity {
 
     private EditText workoutNameET;
-    private Button saveExerciseButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,18 +19,32 @@ public class PlanActivity extends AppCompatActivity {
         setContentView(R.layout.activity_plan);
 
         workoutNameET = findViewById(R.id.editTextWorkoutName);
-        saveExerciseButton = findViewById(R.id.saveButton);
+
+        // Button used to finish creating of a workout
+        Button saveExerciseButton = findViewById(R.id.saveButton);
         saveExerciseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String workoutName = workoutNameET.getText().toString();
+                //@TODO Handle a case where a workout of same name exists
                 if(!workoutName.isEmpty()){
                     Workout workout = new Workout(workoutNameET.getText().toString(), null);
-                    Toast.makeText(getApplicationContext(),"Workout " + workoutName + " saved.",Toast.LENGTH_SHORT).show();
                     Intent resultIntent = new Intent();
                     resultIntent.putExtra("workout", workout);
                     setResult(AppCompatActivity.RESULT_OK, resultIntent);
+                    Toast.makeText(getApplicationContext(),"Workout " + workoutName + " saved.",Toast.LENGTH_SHORT).show();
+                    finish();
                 }
+                else{
+                    Toast.makeText(getApplicationContext(),"Please enter the name.",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        Button cancelButton = findViewById(R.id.cancelButton);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 finish();
             }
         });

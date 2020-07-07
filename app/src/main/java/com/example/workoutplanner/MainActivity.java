@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -29,9 +30,6 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Workout> workouts;
-
-    private RecyclerView workoutsRecyclerView;
-    private FloatingActionButton addWorkoutButton;
     private WorkoutsAdapter workoutsAdapter;
 
     public static final int WORKOUT_REQUEST = 1;
@@ -47,13 +45,13 @@ public class MainActivity extends AppCompatActivity {
         for(String s : sampleWorkouts){
             workouts.add(new Workout(s, null));
         }
-        workoutsRecyclerView = findViewById(R.id.workoutsRecyclerView);
+        RecyclerView workoutsRecyclerView = findViewById(R.id.workoutsRecyclerView);
         workoutsAdapter = new WorkoutsAdapter(this, workouts);
         workoutsRecyclerView.setAdapter(workoutsAdapter);
         workoutsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         //Setup FAB for adding workouts
-        addWorkoutButton = findViewById(R.id.addWorkoutButton);
+        FloatingActionButton addWorkoutButton = findViewById(R.id.addWorkoutButton);
         addWorkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,6 +90,12 @@ public class MainActivity extends AppCompatActivity {
         public WorkoutsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(context);
             View view = inflater.inflate(R.layout.workout_row, parent, false);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(getApplicationContext(),"Workout clicked",Toast.LENGTH_SHORT).show();
+                }
+            });
             return new WorkoutsViewHolder(view);
         }
 

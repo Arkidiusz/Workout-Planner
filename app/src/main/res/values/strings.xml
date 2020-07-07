@@ -5,6 +5,7 @@
     <string name="workout_name">Workout Name</string>
     <string name="save_workout">Save Workout</string>
     <string name="add_exercise">Add Exercise</string>
+    <string name="sample_exercises">Bench Press, Squat...</string>
     <string-array name="sample_workouts">
         <item>FBW 1</item>
         <item>FBW 2</item>
