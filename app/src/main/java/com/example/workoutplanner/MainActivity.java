@@ -6,14 +6,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.LinkedList;
-import java.util.List;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 /**
  * Display a list of workouts that can be added, modified and deleted by the user.
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView workoutsRecyclerView;
     private String[] workouts;
+    private FloatingActionButton addWorkoutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,16 @@ public class MainActivity extends AppCompatActivity {
         WorkoutsAdapter workoutsAdapter = new WorkoutsAdapter(this, workouts);
         workoutsRecyclerView.setAdapter(workoutsAdapter);
         workoutsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        //Setup FAB for adding workouts
+        addWorkoutButton = findViewById(R.id.addWorkoutButton);
+        addWorkoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, PlanActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsAdapter.WorkoutsViewHolder>{
@@ -50,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public WorkoutsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(context);
-            View view = inflater.inflate(R.layout.wd_row, parent, false);
+            View view = inflater.inflate(R.layout.workout_row, parent, false);
             return new WorkoutsViewHolder(view);
         }
 
