@@ -1,9 +1,11 @@
 package com.example.workoutplanner;
 
+import java.io.Serializable;
+
 /**
  * Class representing an Exercise belonging to a Workout
  */
-public class Exercise {
+public class Exercise implements Serializable {
     private String name;
     private int noSets;
 

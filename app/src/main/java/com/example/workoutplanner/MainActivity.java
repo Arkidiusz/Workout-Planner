@@ -43,7 +43,10 @@ public class MainActivity extends AppCompatActivity {
         workouts = new ArrayList<>() ;
         String[] sampleWorkouts = getResources().getStringArray(R.array.sample_workouts);
         for(String s : sampleWorkouts){
-            workouts.add(new Workout(s, null));
+            ArrayList<Exercise> sampleExercises = new ArrayList<>();
+            sampleExercises.add(new Exercise("Bench Press", 5));
+            sampleExercises.add(new Exercise("Squat", 4));
+            workouts.add(new Workout(s, sampleExercises));
         }
         RecyclerView workoutsRecyclerView = findViewById(R.id.workoutsRecyclerView);
         workoutsAdapter = new WorkoutsAdapter(this, workouts);
@@ -101,7 +104,22 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull WorkoutsViewHolder holder, int position) {
-            holder.workoutName.setText(workoutDays.get(position).getName());
+            Workout workout = workoutDays.get(position);
+
+            holder.workoutName.setText(workout.getName());
+
+            // Build a String of all exercises of a Workout to be displayed
+            StringBuilder exercises = new StringBuilder();
+            boolean firstExercise = true;
+            for(Exercise exercise : workout.getExercises()){
+                if(!firstExercise){
+                    exercises.append(", ");
+                }
+                exercises.append(exercise.getName());
+                firstExercise = false;
+            }
+            exercises.lastIndexOf(exercises.toString());
+            holder.exercises.setText(exercises);
         }
 
         @Override
@@ -111,10 +129,12 @@ public class MainActivity extends AppCompatActivity {
 
         public class WorkoutsViewHolder extends RecyclerView.ViewHolder{
             TextView workoutName;
+            TextView exercises;
 
             public WorkoutsViewHolder(@NonNull View itemView) {
                 super(itemView);
                 workoutName = itemView.findViewById(R.id.workout_name);
+                exercises = itemView.findViewById(R.id.exercises);
             }
         }
     }
