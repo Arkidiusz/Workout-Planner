@@ -9,6 +9,7 @@ public class Exercise implements Serializable {
     private String name;
     private int noSets;
 
+    //@TODO make private
     public Exercise(String name, int noSets) {
         this.name = name;
         this.noSets = noSets;
@@ -33,7 +34,7 @@ public class Exercise implements Serializable {
     /**
      * Tempo, e.g. 4020 where 4 is 4s of eccentric phase and so on
      */
-    public class TempoExercise extends Exercise{
+    public static class TempoExercise extends Exercise{
         private int noReps;
         private int eccentric;
         private int eccentricPause;
@@ -90,7 +91,7 @@ public class Exercise implements Serializable {
         }
     }
 
-    public class IsometricExercise extends Exercise{
+    public static class IsometricExercise extends Exercise{
         private int time;
 
         public IsometricExercise(String name, int noSets, int time) {
