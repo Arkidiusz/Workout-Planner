@@ -11,6 +11,7 @@
     <string name="sets">Sets:</string>
     <string name="reps">Reps:</string>
     <string name="tempo">Tempo:</string>
+    <string name="time">Time: (s)</string>
     <string-array name="sample_workouts">
         <item>FBW 1</item>
         <item>FBW 2</item>
