@@ -6,6 +6,11 @@
     <string name="save_workout">Save Workout</string>
     <string name="add_exercise">Add Exercise</string>
     <string name="sample_exercises">Bench Press, Squat...</string>
+    <string name="sample_exercise">Bench Press</string>
+    <string name="remove_exercise">Remove Exercise</string>
+    <string name="sets">Sets:</string>
+    <string name="reps">Reps:</string>
+    <string name="tempo">Tempo:</string>
     <string-array name="sample_workouts">
         <item>FBW 1</item>
         <item>FBW 2</item>
