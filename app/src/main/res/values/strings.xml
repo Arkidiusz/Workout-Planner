@@ -4,7 +4,7 @@
     <string name="title_activity_plan">Plan Workout</string>
     <string name="workout_name">Workout Name</string>
     <string name="save_workout">Save Workout</string>
-    <string name="add_exercise">Add Exercise</string>
+    <string name="add_exercise">Add to Workout</string>
     <string name="sample_exercises">Bench Press, Squat...</string>
     <string name="sample_exercise">Bench Press</string>
     <string name="remove_exercise">Remove Exercise</string>
@@ -12,8 +12,20 @@
     <string name="reps">Reps:</string>
     <string name="tempo">Tempo:</string>
     <string name="time">Time: (s)</string>
+    <string name="exercise_type">Exercise Type:</string>
+    <string name="exercise_name">Exercise Name</string>
+    <string name="existing_exercise_label">Choose an existing exercise:</string>
+    <string name="new_exercise_label">Create a new exercise:</string>
     <string-array name="sample_workouts">
         <item>FBW 1</item>
         <item>FBW 2</item>
+    </string-array>
+    <string-array name="exercise_types">
+        <item>Tempo</item>
+        <item>Isometric</item>
+    </string-array>
+    <string-array name="sample_exercises">
+        <item>Deadlift</item>
+        <item>Plank</item>
     </string-array>
 </resources>
