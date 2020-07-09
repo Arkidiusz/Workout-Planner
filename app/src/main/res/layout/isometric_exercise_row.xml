@@ -17,11 +17,21 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <ImageView
+                android:id="@+id/isometric_drag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/drag_indicator" />
+
             <EditText
                 android:id="@+id/iso_no_sets"
                 android:layout_width="64dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="48dp"
                 android:ems="10"
                 android:importantForAutofill="no"
                 android:inputType="number"
@@ -34,7 +44,7 @@
                 android:id="@+id/time"
                 android:layout_width="64dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="164dp"
+                android:layout_marginEnd="160dp"
                 android:ems="10"
                 android:importantForAutofill="no"
                 android:inputType="number"
@@ -83,7 +93,7 @@
                 android:layout_marginTop="4dp"
                 android:text="@string/sample_exercise"
                 android:textSize="24sp"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/isometric_drag"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

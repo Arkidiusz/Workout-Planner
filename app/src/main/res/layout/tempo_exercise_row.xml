@@ -17,18 +17,28 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <ImageView
+                android:id="@+id/tempo_drag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/drag_indicator" />
+
             <EditText
                 android:id="@+id/no_sets"
                 android:layout_width="64dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="48dp"
                 android:ems="10"
+                android:importantForAutofill="no"
                 android:inputType="number"
                 android:text="5"
                 android:textAlignment="center"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sets_label"
-                android:importantForAutofill="no" />
+                app:layout_constraintTop_toBottomOf="@+id/sets_label" />
 
             <EditText
                 android:id="@+id/no_reps"
@@ -47,14 +57,14 @@
                 android:id="@+id/tempo"
                 android:layout_width="64dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="128dp"
+                android:layout_marginEnd="96dp"
                 android:ems="10"
+                android:importantForAutofill="no"
                 android:inputType="number"
                 android:text="4010"
                 android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/remove_exercise"
-                android:importantForAutofill="no" />
+                app:layout_constraintEnd_toStartOf="@+id/remove_exercise" />
 
             <ImageButton
                 android:id="@+id/remove_exercise"
@@ -105,7 +115,7 @@
                 android:layout_marginTop="4dp"
                 android:text="@string/sample_exercise"
                 android:textSize="24sp"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tempo_drag"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

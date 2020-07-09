@@ -15,7 +15,8 @@
         app:layout_constraintBottom_toTopOf="@+id/addButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextWorkoutName" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextWorkoutName"
+        android:foreground="?attr/selectableItemBackground"/>
 
     <Button
         android:id="@+id/addButton"
@@ -69,5 +70,6 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textAlignment="center"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

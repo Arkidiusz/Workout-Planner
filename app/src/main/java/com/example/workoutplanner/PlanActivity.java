@@ -2,11 +2,14 @@ package com.example.workoutplanner;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaRouter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class PlanActivity extends AppCompatActivity {
 
@@ -74,7 +78,25 @@ public class PlanActivity extends AppCompatActivity {
         exercisesAdapter = new ExercisesAdapter(this, exercises);
         exercisesRV.setAdapter(exercisesAdapter);
         exercisesRV.setLayoutManager(new LinearLayoutManager(this));
-        Log.i("A", "start");
+        exercisesRV.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        // Drag RV items to reorder
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.START | ItemTouchHelper.END, 0) {
+            @Override
+            // Swap positions of the items moved
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                int fromPosition = viewHolder.getAdapterPosition();
+                int toPosition = target.getAdapterPosition();
+                Collections.swap(exercises, fromPosition, toPosition);
+                recyclerView.getAdapter().notifyItemMoved(fromPosition, toPosition);
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                // do nothing;
+            }
+        });
+        itemTouchHelper.attachToRecyclerView(exercisesRV);
     }
 
     public class ExercisesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
