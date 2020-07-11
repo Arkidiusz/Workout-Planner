@@ -1,7 +1,5 @@
 package com.example.workoutplanner;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,16 +10,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import androidx.appcompat.app.AppCompatActivity;
 
 //TODO create a method for instantiating Exercises with default values
 public class AddExerciseActivity extends AppCompatActivity {
-
-    private EditText exerciseName;
-    private Spinner exerciseList;
-    private Spinner exerciseTypes;
-    private Button addExistingExercise;
-    private Button addNewExercise;
 
     // Default values for new exercises
     private static final int DEFAULT_SETS = 5;
@@ -32,45 +24,49 @@ public class AddExerciseActivity extends AppCompatActivity {
     private static final int DEFAULT_CONCENTRIC_PAUSE = 0;
     private static final int DEFAULT_TIME = 60;
 
+    private EditText etExerciseName;
+    private Spinner spnExercises;
+    private Spinner spnExerciseTypes;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_exercise);
 
-        exerciseName = findViewById(R.id.new_exercise_name);
+        etExerciseName = findViewById(R.id.et_exercise_name);
 
         // List of already existing exercises
-        exerciseList = findViewById(R.id.existing_exercises_spinner);
+        spnExercises = findViewById(R.id.spn_existing_exercises);
         ArrayAdapter<CharSequence> exerciseAdapter = ArrayAdapter.createFromResource(this, R.array.sample_exercises, android.R.layout.simple_spinner_item);
         exerciseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        exerciseList.setAdapter(exerciseAdapter);
+        spnExercises.setAdapter(exerciseAdapter);
 
 
         // Spinner of types of exercises - tempo and isometric
-        exerciseTypes = findViewById(R.id.exercise_types_spinner);
+        spnExerciseTypes = findViewById(R.id.spn_exercise_types);
         ArrayAdapter<CharSequence> exerciseTypeAdapter = ArrayAdapter.createFromResource(this, R.array.exercise_types, android.R.layout.simple_spinner_item);
         exerciseTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        exerciseTypes.setAdapter(exerciseTypeAdapter);
+        spnExerciseTypes.setAdapter(exerciseTypeAdapter);
 
-        addExistingExercise = findViewById(R.id.confirm_exercise2);
-        addExistingExercise.setOnClickListener(new View.OnClickListener() {
+        Button btnAddExistingExercise = findViewById(R.id.btn_confirm_existing_exercise);
+        btnAddExistingExercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent resultIntent = new Intent();
                 Exercise exercise;
                 //TODO similar things as below
-                Log.i("Exercise name", exerciseList.getSelectedItem().toString());
-                switch(exerciseList.getSelectedItem().toString()){
-                    case "Deadlift":{
-                        exercise = new Exercise.TempoExercise("Deadlift",DEFAULT_SETS,DEFAULT_REPS,DEFAULT_ECCENTRIC,DEFAULT_ECCENTRIC_PAUSE,DEFAULT_CONCENTRIC,DEFAULT_CONCENTRIC_PAUSE);
+                Log.i("Exercise name", spnExercises.getSelectedItem().toString());
+                switch (spnExercises.getSelectedItem().toString()) {
+                    case "Deadlift": {
+                        exercise = new Exercise.TempoExercise("Deadlift", DEFAULT_SETS, DEFAULT_REPS, DEFAULT_ECCENTRIC, DEFAULT_ECCENTRIC_PAUSE, DEFAULT_CONCENTRIC, DEFAULT_CONCENTRIC_PAUSE);
                         break;
                     }
-                    case "Plank":{
+                    case "Plank": {
                         exercise = new Exercise.IsometricExercise("Plank", DEFAULT_SETS, DEFAULT_TIME);
                         break;
                     }
-                    default:{ //@TODO ensure this never occurs
-                        exercise = new Exercise(exerciseName.getText().toString(), 5);
+                    default: { //@TODO ensure this never occurs
+                        exercise = new Exercise(etExerciseName.getText().toString(), 5);
                         break;
                     }
                 }
@@ -81,20 +77,22 @@ public class AddExerciseActivity extends AppCompatActivity {
             }
         });
 
-        addNewExercise = findViewById(R.id.confirm_exercise);
-        addNewExercise.setOnClickListener(new View.OnClickListener() {
+        Button btnAddNewExercise = findViewById(R.id.btn_confirm_new_exercise);
+        btnAddNewExercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent resultIntent = new Intent();
                 Exercise exercise;
-                switch (exerciseTypes.getSelectedItem().toString()){ //@TODO use enum instead
+                switch (spnExerciseTypes.getSelectedItem().toString()) { //@TODO use enum instead
                     //@TODO handle the case where exerciseName is empty
-                    case "Isometric":{
-                        exercise = new Exercise.IsometricExercise(exerciseName.getText().toString(),DEFAULT_SETS,DEFAULT_TIME);
+                    case "Isometric": {
+                        exercise = new Exercise.IsometricExercise(etExerciseName.getText().toString(), DEFAULT_SETS, DEFAULT_TIME);
                         break;
                     }
-                    default:{//tempo
-                        exercise = new Exercise.TempoExercise(exerciseName.getText().toString(), DEFAULT_SETS, DEFAULT_REPS, DEFAULT_ECCENTRIC,DEFAULT_ECCENTRIC_PAUSE,DEFAULT_CONCENTRIC,DEFAULT_CONCENTRIC_PAUSE);
+                    default: {//tempo
+                        exercise = new Exercise.TempoExercise(etExerciseName.getText().toString(),
+                                DEFAULT_SETS, DEFAULT_REPS, DEFAULT_ECCENTRIC,
+                                DEFAULT_ECCENTRIC_PAUSE, DEFAULT_CONCENTRIC, DEFAULT_CONCENTRIC_PAUSE);
                         break;
                     }
                 }

@@ -12,7 +12,7 @@
         <activity android:name=".AddExerciseActivity"></activity>
         <activity
             android:name=".PlanActivity"
-            android:label="@string/title_activity_plan" />
+            android:label="@string/plan_title" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

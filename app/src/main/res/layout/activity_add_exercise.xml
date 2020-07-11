@@ -33,33 +33,33 @@
                         android:padding="16dp">
 
                         <Button
-                            android:id="@+id/confirm_exercise2"
+                            android:id="@+id/btn_confirm_existing_exercise"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="32dp"
                             android:backgroundTint="@color/cardview_light_background"
-                            android:text="@string/add_exercise"
+                            android:text="@string/all_add_exercise"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent" />
 
                         <Spinner
-                            android:id="@+id/existing_exercises_spinner"
+                            android:id="@+id/spn_existing_exercises"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
                             android:layout_marginTop="16dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/existing_label" />
+                            app:layout_constraintTop_toBottomOf="@+id/tv_existing_exercises_label" />
 
                         <TextView
-                            android:id="@+id/existing_label"
+                            android:id="@+id/tv_existing_exercises_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
+                            android:text="@string/add_existing_exercise_label"
                             android:textSize="24sp"
-                            android:text="@string/existing_exercise_label"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -91,53 +91,53 @@
                         android:padding="16dp">
 
                         <Button
-                            android:id="@+id/confirm_exercise"
+                            android:id="@+id/btn_confirm_new_exercise"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="32dp"
                             android:backgroundTint="@android:color/white"
-                            android:text="@string/add_exercise"
+                            android:text="@string/all_add_exercise"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent" />
 
                         <EditText
-                            android:id="@+id/new_exercise_name"
+                            android:id="@+id/et_exercise_name"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:ems="10"
-                            android:hint="@string/exercise_name"
+                            android:hint="@string/add_exercise_name_hint"
                             android:importantForAutofill="no"
                             android:inputType="textPersonName"
                             android:textAlignment="center"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/new_exercise_label" />
+                            app:layout_constraintTop_toBottomOf="@+id/tv_new_exercise_label" />
 
                         <Spinner
-                            android:id="@+id/exercise_types_spinner"
+                            android:id="@+id/spn_exercise_types"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            app:layout_constraintBottom_toBottomOf="@+id/exercise_type_label"
+                            app:layout_constraintBottom_toBottomOf="@+id/tv_exercise_type_label"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/exercise_type_label"
-                            app:layout_constraintTop_toTopOf="@+id/exercise_type_label" />
+                            app:layout_constraintStart_toEndOf="@+id/tv_exercise_type_label"
+                            app:layout_constraintTop_toTopOf="@+id/tv_exercise_type_label" />
 
                         <TextView
-                            android:id="@+id/exercise_type_label"
+                            android:id="@+id/tv_exercise_type_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="@string/exercise_type"
-                            app:layout_constraintTop_toBottomOf="@+id/new_exercise_name"
-                            tools:layout_editor_absoluteX="16dp" />
+                            android:text="@string/add_exercise_type_label"
+                            app:layout_constraintStart_toStartOf="@+id/et_exercise_name"
+                            app:layout_constraintTop_toBottomOf="@+id/et_exercise_name" />
 
                         <TextView
-                            android:id="@+id/new_exercise_label"
+                            android:id="@+id/tv_new_exercise_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/new_exercise_label"
+                            android:text="@string/add_new_exercise_label"
                             android:textSize="24sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -17,18 +15,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/tempo_drag"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/drag_indicator" />
-
             <EditText
-                android:id="@+id/no_sets"
+                android:id="@+id/et_no_sets"
                 android:layout_width="64dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="48dp"
@@ -38,23 +26,23 @@
                 android:text="5"
                 android:textAlignment="center"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sets_label" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_sets_label" />
 
             <EditText
-                android:id="@+id/no_reps"
+                android:id="@+id/et_no_reps"
                 android:layout_width="64dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:importantForAutofill="no"
                 android:inputType="number"
                 android:text="5"
                 android:textAlignment="center"
-                app:layout_constraintEnd_toStartOf="@+id/tempo"
-                app:layout_constraintStart_toEndOf="@+id/no_sets"
-                app:layout_constraintTop_toBottomOf="@+id/reps_label"
-                android:importantForAutofill="no" />
+                app:layout_constraintEnd_toStartOf="@+id/et_tempo"
+                app:layout_constraintStart_toEndOf="@+id/et_no_sets"
+                app:layout_constraintTop_toBottomOf="@+id/tv_reps_label" />
 
             <EditText
-                android:id="@+id/tempo"
+                android:id="@+id/et_tempo"
                 android:layout_width="64dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="96dp"
@@ -64,58 +52,68 @@
                 android:text="4010"
                 android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/remove_exercise" />
+                app:layout_constraintEnd_toStartOf="@+id/btn_remove_exercise" />
 
             <ImageButton
-                android:id="@+id/remove_exercise"
+                android:id="@+id/btn_remove_exercise"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="2dp"
+                android:contentDescription="@string/all_remove_exercise"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/delete"
-                android:contentDescription="@string/remove_exercise" />
+                app:srcCompat="@drawable/delete" />
+
+            <ImageView
+                android:id="@+id/tv_tempo_drag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/drag_indicator" />
 
             <TextView
-                android:id="@+id/tempo_label"
+                android:id="@+id/tv_tempo_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="@string/tempo"
-                app:layout_constraintBottom_toTopOf="@+id/tempo"
-                app:layout_constraintEnd_toEndOf="@+id/tempo"
-                app:layout_constraintStart_toStartOf="@+id/tempo"
-                app:layout_constraintTop_toBottomOf="@+id/exercise_name" />
+                android:text="@string/tempo_label"
+                app:layout_constraintBottom_toTopOf="@+id/et_tempo"
+                app:layout_constraintEnd_toEndOf="@+id/et_tempo"
+                app:layout_constraintStart_toStartOf="@+id/et_tempo"
+                app:layout_constraintTop_toBottomOf="@+id/tv_exercise_name" />
 
             <TextView
-                android:id="@+id/reps_label"
+                android:id="@+id/tv_reps_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="@string/reps"
-                app:layout_constraintEnd_toEndOf="@+id/no_reps"
-                app:layout_constraintStart_toStartOf="@+id/no_reps"
-                app:layout_constraintTop_toBottomOf="@+id/exercise_name" />
+                android:text="@string/all_reps_label"
+                app:layout_constraintEnd_toEndOf="@+id/et_no_reps"
+                app:layout_constraintStart_toStartOf="@+id/et_no_reps"
+                app:layout_constraintTop_toBottomOf="@+id/tv_exercise_name" />
 
             <TextView
-                android:id="@+id/sets_label"
+                android:id="@+id/tv_sets_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="@string/sets"
-                app:layout_constraintEnd_toEndOf="@+id/no_sets"
-                app:layout_constraintStart_toStartOf="@+id/no_sets"
-                app:layout_constraintTop_toBottomOf="@+id/exercise_name" />
+                android:text="@string/all_sets_label"
+                app:layout_constraintEnd_toEndOf="@+id/et_no_sets"
+                app:layout_constraintStart_toStartOf="@+id/et_no_sets"
+                app:layout_constraintTop_toBottomOf="@+id/tv_exercise_name" />
 
             <TextView
-                android:id="@+id/exercise_name"
+                android:id="@+id/tv_exercise_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
-                android:text="@string/sample_exercise"
+                android:text="@string/all_sample_exercise"
                 android:textSize="24sp"
-                app:layout_constraintStart_toEndOf="@+id/tempo_drag"
+                app:layout_constraintStart_toEndOf="@+id/tv_tempo_drag"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

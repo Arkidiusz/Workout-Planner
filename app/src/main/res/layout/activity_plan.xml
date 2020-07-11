@@ -6,18 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".PlanActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/exercisesRV"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:foreground="?attr/selectableItemBackground"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextWorkoutName" />
-
     <Button
-        android:id="@+id/addButton"
+        android:id="@+id/btn_add_exercise"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -25,16 +15,16 @@
         android:layout_marginBottom="8dp"
         android:background="@android:color/darker_gray"
         android:drawableStart="@drawable/plus"
+        android:drawableEnd="@drawable/plus"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:drawableEnd="@drawable/plus"
-        android:text="@string/add_exercise"
-        app:layout_constraintBottom_toTopOf="@+id/cancelButton"
+        android:text="@string/all_add_exercise"
+        app:layout_constraintBottom_toTopOf="@+id/btn_cancel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/cancelButton"
+        android:id="@+id/btn_cancel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -45,31 +35,41 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/saveButton"
+        android:id="@+id/btn_save"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@android:color/holo_green_light"
-        android:text="@string/save_workout"
+        android:text="@string/plan_save_workout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/cancelButton" />
+        app:layout_constraintStart_toEndOf="@+id/btn_cancel" />
 
     <EditText
-        android:id="@+id/editTextWorkoutName"
+        android:id="@+id/et_workout_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:ems="10"
-        android:hint="@string/workout_name"
+        android:hint="@string/all_workout_name"
         android:importantForAutofill="no"
         android:inputType="textPersonName"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textAlignment="center"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_exercises"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:foreground="?attr/selectableItemBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_workout_name" />
 </androidx.constraintlayout.widget.ConstraintLayout>

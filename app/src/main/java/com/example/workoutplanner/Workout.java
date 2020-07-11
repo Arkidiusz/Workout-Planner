@@ -1,8 +1,5 @@
 package com.example.workoutplanner;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import androidx.annotation.NonNull;
 
 import java.io.Serializable;

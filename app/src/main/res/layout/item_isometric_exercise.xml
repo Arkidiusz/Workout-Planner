@@ -17,7 +17,7 @@
             android:layout_height="match_parent">
 
             <EditText
-                android:id="@+id/iso_no_sets"
+                android:id="@+id/et_iso_no_sets"
                 android:layout_width="64dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="48dp"
@@ -27,10 +27,10 @@
                 android:text="5"
                 android:textAlignment="center"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iso_sets_label" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_iso_sets_label" />
 
             <EditText
-                android:id="@+id/time"
+                android:id="@+id/et_iso_time"
                 android:layout_width="64dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="160dp"
@@ -40,21 +40,21 @@
                 android:text="60"
                 android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/iso_remove_exercise"
-                app:layout_constraintStart_toEndOf="@+id/iso_no_sets" />
+                app:layout_constraintEnd_toStartOf="@+id/btn_remove_iso_exercise"
+                app:layout_constraintStart_toEndOf="@+id/et_iso_no_sets" />
 
             <ImageButton
-                android:id="@+id/iso_remove_exercise"
+                android:id="@+id/btn_remove_iso_exercise"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="2dp"
-                android:contentDescription="@string/remove_exercise"
+                android:contentDescription="@string/all_remove_exercise"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/delete" />
 
             <ImageView
-                android:id="@+id/isometric_drag"
+                android:id="@+id/iv_iso_drag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
@@ -64,35 +64,35 @@
                 app:srcCompat="@drawable/drag_indicator" />
 
             <TextView
-                android:id="@+id/time_label"
+                android:id="@+id/tv_time_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="@string/time"
-                app:layout_constraintBottom_toTopOf="@+id/time"
-                app:layout_constraintEnd_toEndOf="@+id/time"
-                app:layout_constraintStart_toStartOf="@+id/time"
-                app:layout_constraintTop_toBottomOf="@+id/iso_exercise_name" />
+                android:text="@string/isometric_time_label"
+                app:layout_constraintBottom_toTopOf="@+id/et_iso_time"
+                app:layout_constraintEnd_toEndOf="@+id/et_iso_time"
+                app:layout_constraintStart_toStartOf="@+id/et_iso_time"
+                app:layout_constraintTop_toBottomOf="@+id/tv_iso_exercise_name" />
 
             <TextView
-                android:id="@+id/iso_sets_label"
+                android:id="@+id/tv_iso_sets_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="@string/sets"
-                app:layout_constraintEnd_toEndOf="@+id/iso_no_sets"
-                app:layout_constraintStart_toStartOf="@+id/iso_no_sets"
-                app:layout_constraintTop_toBottomOf="@+id/iso_exercise_name" />
+                android:text="@string/all_sets_label"
+                app:layout_constraintEnd_toEndOf="@+id/et_iso_no_sets"
+                app:layout_constraintStart_toStartOf="@+id/et_iso_no_sets"
+                app:layout_constraintTop_toBottomOf="@+id/tv_iso_exercise_name" />
 
             <TextView
-                android:id="@+id/iso_exercise_name"
+                android:id="@+id/tv_iso_exercise_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
-                android:text="@string/sample_exercise"
+                android:text="@string/all_sample_exercise"
                 android:textSize="24sp"
-                app:layout_constraintStart_toEndOf="@+id/isometric_drag"
+                app:layout_constraintStart_toEndOf="@+id/iv_iso_drag"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
