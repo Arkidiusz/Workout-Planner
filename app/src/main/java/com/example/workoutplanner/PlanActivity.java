@@ -3,7 +3,6 @@ package com.example.workoutplanner;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +27,7 @@ public class PlanActivity extends AppCompatActivity {
     public static final int EXERCISE_REQUEST = 2;
     private EditText etWorkoutName;
     private ExercisesAdapter mExercisesAdapter;
-    private ArrayList<Exercise> exercises;
+    private ArrayList<ExercisePlan> exercisePlans;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +44,11 @@ public class PlanActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String workoutName = etWorkoutName.getText().toString();
                 if (!workoutName.isEmpty()) {
-                    ArrayList<Exercise> sampleExercises = new ArrayList<>();
-                    sampleExercises.add(new Exercise("Bench Press", 5));
-                    sampleExercises.add(new Exercise("Squat", 4));
-                    Workout workout = new Workout(etWorkoutName.getText().toString(), sampleExercises);
+                    WorkoutPlan workoutPlan = new WorkoutPlan(etWorkoutName.getText().toString(), exercisePlans);
                     Intent resultIntent = new Intent();
-                    resultIntent.putExtra("workout", workout);
+                    resultIntent.putExtra("workoutPlan", workoutPlan);
                     setResult(AppCompatActivity.RESULT_OK, resultIntent);
-                    Toast.makeText(getApplicationContext(), "Workout " + workoutName + " saved.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "WorkoutPlan " + workoutName + " saved.", Toast.LENGTH_SHORT).show();
                     finish();
                 }//@TODO Handle a case where a workout of same name exists
                 else {
@@ -81,10 +77,10 @@ public class PlanActivity extends AppCompatActivity {
 
         // List of planned Exercises for a workout
         RecyclerView rvExercises = findViewById(R.id.rv_exercises);
-        exercises = new ArrayList<>();//testing sample
-        exercises.add(new Exercise.TempoExercise("Bench Press", 5, 5, 4, 0, 1, 0));
-        exercises.add(new Exercise.IsometricExercise("Plank", 5, 60));
-        mExercisesAdapter = new ExercisesAdapter(this, exercises);
+        exercisePlans = new ArrayList<>();//testing sample
+        exercisePlans.add(new ExercisePlan.TempoExercisePlan("Bench Press", 5, 5, 4, 0, 1, 0));
+        exercisePlans.add(new ExercisePlan.IsometricExercisePlan("Plank", 5, 60));
+        mExercisesAdapter = new ExercisesAdapter(this, exercisePlans);
         rvExercises.setAdapter(mExercisesAdapter);
         rvExercises.setLayoutManager(new LinearLayoutManager(this));
         rvExercises.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
@@ -96,7 +92,7 @@ public class PlanActivity extends AppCompatActivity {
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 int fromPosition = viewHolder.getAdapterPosition();
                 int toPosition = target.getAdapterPosition();
-                Collections.swap(exercises, fromPosition, toPosition);
+                Collections.swap(exercisePlans, fromPosition, toPosition);
                 recyclerView.getAdapter().notifyItemMoved(fromPosition, toPosition);
                 return false;
             }
@@ -115,9 +111,8 @@ public class PlanActivity extends AppCompatActivity {
         if (requestCode == EXERCISE_REQUEST) {
             if (resultCode == RESULT_OK) {
                 if (data != null) {
-                    Log.i("ActivityResult", "checks passed");
-                    exercises.add((Exercise) data.getSerializableExtra("exercise"));
-                    mExercisesAdapter.notifyItemInserted(exercises.size() - 1);
+                    exercisePlans.add((ExercisePlan) data.getSerializableExtra("exercise"));
+                    mExercisesAdapter.notifyItemInserted(exercisePlans.size() - 1);
                 }
             }
         }
@@ -128,16 +123,16 @@ public class PlanActivity extends AppCompatActivity {
         private static final int TEMPO_EXERCISE = 1;
         private static final int ISOMETRIC_EXERCISE = 2;
         private final Context mContext;
-        private final ArrayList<Exercise> exercises;
+        private final ArrayList<ExercisePlan> exercisePlans;
 
-        public ExercisesAdapter(Context mContext, ArrayList<Exercise> exercises) {
+        public ExercisesAdapter(Context mContext, ArrayList<ExercisePlan> exercisePlans) {
             this.mContext = mContext;
-            this.exercises = exercises;
+            this.exercisePlans = exercisePlans;
         }
 
         @Override
         public int getItemViewType(int position) {
-            if (exercises.get(position) instanceof Exercise.TempoExercise) {
+            if (exercisePlans.get(position) instanceof ExercisePlan.TempoExercisePlan) {
                 return TEMPO_EXERCISE;
             } else {
                 return ISOMETRIC_EXERCISE;
@@ -165,7 +160,7 @@ public class PlanActivity extends AppCompatActivity {
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
             switch (holder.getItemViewType()) {
                 case 1: {
-                    Exercise.TempoExercise exercise = (Exercise.TempoExercise) exercises.get(position);
+                    ExercisePlan.TempoExercisePlan exercise = (ExercisePlan.TempoExercisePlan) exercisePlans.get(position);
                     TempoViewHolder tempo_holder = (TempoViewHolder) holder;
                     tempo_holder.tvExerciseName.setText(exercise.getName());
                     tempo_holder.etNoSets.setText(Integer.toString(exercise.getNoSets()));
@@ -176,7 +171,7 @@ public class PlanActivity extends AppCompatActivity {
                     break;
                 }
                 case 2: {
-                    Exercise.IsometricExercise exercise = (Exercise.IsometricExercise) exercises.get(position);
+                    ExercisePlan.IsometricExercisePlan exercise = (ExercisePlan.IsometricExercisePlan) exercisePlans.get(position);
                     IsometricViewHolder isometric_holder = (IsometricViewHolder) holder;
                     isometric_holder.tvExerciseName.setText(exercise.getName());
                     isometric_holder.etNoSets.setText(Integer.toString(exercise.getNoSets()));
@@ -188,7 +183,7 @@ public class PlanActivity extends AppCompatActivity {
 
         @Override
         public int getItemCount() {
-            return exercises.size();
+            return exercisePlans.size();
         }
 
         public static class TempoViewHolder extends RecyclerView.ViewHolder {

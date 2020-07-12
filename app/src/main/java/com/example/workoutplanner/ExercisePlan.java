@@ -3,14 +3,14 @@ package com.example.workoutplanner;
 import java.io.Serializable;
 
 /**
- * Class representing an Exercise belonging to a Workout
+ * Class representing an ExercisePlan belonging to a WorkoutPlan
  */
-public class Exercise implements Serializable {
+public class ExercisePlan implements Serializable {
     private String name;
     private int noSets;
 
     //@TODO make private
-    public Exercise(String name, int noSets) {
+    public ExercisePlan(String name, int noSets) {
         this.name = name;
         this.noSets = noSets;
     }
@@ -34,14 +34,14 @@ public class Exercise implements Serializable {
     /**
      * Tempo, e.g. 4020 where 4 is 4s of eccentric phase and so on
      */
-    public static class TempoExercise extends Exercise {
+    public static class TempoExercisePlan extends ExercisePlan {
         private int noReps;
         private int eccentric;
         private int eccentricPause;
         private int concentric;
         private int concentricPause;
 
-        public TempoExercise(String name, int noSets, int noReps, int eccentric, int eccentricPause, int concentric, int concentricPause) {
+        public TempoExercisePlan(String name, int noSets, int noReps, int eccentric, int eccentricPause, int concentric, int concentricPause) {
             super(name, noSets);
             this.noReps = noReps;
             this.eccentric = eccentric;
@@ -91,10 +91,10 @@ public class Exercise implements Serializable {
         }
     }
 
-    public static class IsometricExercise extends Exercise {
+    public static class IsometricExercisePlan extends ExercisePlan {
         private int time;
 
-        public IsometricExercise(String name, int noSets, int time) {
+        public IsometricExercisePlan(String name, int noSets, int time) {
             super(name, noSets);
             this.time = time;
         }

@@ -53,26 +53,26 @@ public class AddExerciseActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent resultIntent = new Intent();
-                Exercise exercise;
+                ExercisePlan exercisePlan;
                 //TODO similar things as below
-                Log.i("Exercise name", spnExercises.getSelectedItem().toString());
+                Log.i("ExercisePlan name", spnExercises.getSelectedItem().toString());
                 switch (spnExercises.getSelectedItem().toString()) {
                     case "Deadlift": {
-                        exercise = new Exercise.TempoExercise("Deadlift", DEFAULT_SETS, DEFAULT_REPS, DEFAULT_ECCENTRIC, DEFAULT_ECCENTRIC_PAUSE, DEFAULT_CONCENTRIC, DEFAULT_CONCENTRIC_PAUSE);
+                        exercisePlan = new ExercisePlan.TempoExercisePlan("Deadlift", DEFAULT_SETS, DEFAULT_REPS, DEFAULT_ECCENTRIC, DEFAULT_ECCENTRIC_PAUSE, DEFAULT_CONCENTRIC, DEFAULT_CONCENTRIC_PAUSE);
                         break;
                     }
                     case "Plank": {
-                        exercise = new Exercise.IsometricExercise("Plank", DEFAULT_SETS, DEFAULT_TIME);
+                        exercisePlan = new ExercisePlan.IsometricExercisePlan("Plank", DEFAULT_SETS, DEFAULT_TIME);
                         break;
                     }
                     default: { //@TODO ensure this never occurs
-                        exercise = new Exercise(etExerciseName.getText().toString(), 5);
+                        exercisePlan = new ExercisePlan(etExerciseName.getText().toString(), 5);
                         break;
                     }
                 }
-                resultIntent.putExtra("exercise", exercise);
+                resultIntent.putExtra("exercisePlan", exercisePlan);
                 setResult(AppCompatActivity.RESULT_OK, resultIntent);
-                Toast.makeText(getApplicationContext(), "Exercise " + exercise.getName() + " added.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "ExercisePlan " + exercisePlan.getName() + " added.", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
@@ -82,23 +82,23 @@ public class AddExerciseActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent resultIntent = new Intent();
-                Exercise exercise;
+                ExercisePlan exercisePlan;
                 switch (spnExerciseTypes.getSelectedItem().toString()) { //@TODO use enum instead
                     //@TODO handle the case where exerciseName is empty
                     case "Isometric": {
-                        exercise = new Exercise.IsometricExercise(etExerciseName.getText().toString(), DEFAULT_SETS, DEFAULT_TIME);
+                        exercisePlan = new ExercisePlan.IsometricExercisePlan(etExerciseName.getText().toString(), DEFAULT_SETS, DEFAULT_TIME);
                         break;
                     }
                     default: {//tempo
-                        exercise = new Exercise.TempoExercise(etExerciseName.getText().toString(),
+                        exercisePlan = new ExercisePlan.TempoExercisePlan(etExerciseName.getText().toString(),
                                 DEFAULT_SETS, DEFAULT_REPS, DEFAULT_ECCENTRIC,
                                 DEFAULT_ECCENTRIC_PAUSE, DEFAULT_CONCENTRIC, DEFAULT_CONCENTRIC_PAUSE);
                         break;
                     }
                 }
-                resultIntent.putExtra("exercise", exercise);
+                resultIntent.putExtra("exercisePlan", exercisePlan);
                 setResult(AppCompatActivity.RESULT_OK, resultIntent);
-                Toast.makeText(getApplicationContext(), "Exercise " + exercise.getName() + " added.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "ExercisePlan " + exercisePlan.getName() + " added.", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });

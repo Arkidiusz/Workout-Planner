@@ -20,12 +20,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
 /**
- * Display a list of workouts that can be added, modified and deleted by the user.
+ * Display a list of workoutPlans that can be added, modified and deleted by the user.
  */
 public class MainActivity extends AppCompatActivity {
 
     public static final int WORKOUT_REQUEST = 1;
-    private ArrayList<Workout> workouts;
+    private ArrayList<WorkoutPlan> workoutPlans;
     private WorkoutsAdapter mWorkoutsAdapter;
 
     @Override
@@ -34,20 +34,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Setup RecyclerView of Workouts
-        workouts = new ArrayList<>();
+        workoutPlans = new ArrayList<>();
         String[] sampleWorkouts = getResources().getStringArray(R.array.sample_workouts);
         for (String s : sampleWorkouts) {
-            ArrayList<Exercise> sampleExercises = new ArrayList<>();
-            sampleExercises.add(new Exercise("Bench Press", 5));
-            sampleExercises.add(new Exercise("Squat", 4));
-            workouts.add(new Workout(s, sampleExercises));
+            ArrayList<ExercisePlan> sampleExercisePlans = new ArrayList<>();
+            sampleExercisePlans.add(new ExercisePlan("Bench Press", 5));
+            sampleExercisePlans.add(new ExercisePlan("Squat", 4));
+            workoutPlans.add(new WorkoutPlan(s, sampleExercisePlans));
         }
         RecyclerView rvWorkouts = findViewById(R.id.rv_workouts);
-        mWorkoutsAdapter = new WorkoutsAdapter(this, workouts);
+        mWorkoutsAdapter = new WorkoutsAdapter(this, workoutPlans);
         rvWorkouts.setAdapter(mWorkoutsAdapter);
         rvWorkouts.setLayoutManager(new LinearLayoutManager(this));
 
-        //Setup FAB for adding workouts
+        //Setup FAB for adding workoutPlans
         FloatingActionButton fabAddWorkout = findViewById(R.id.btn_add_workout);
         fabAddWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,8 +65,8 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == WORKOUT_REQUEST) {
             if (resultCode == RESULT_OK) {
                 if (data != null) {
-                    workouts.add((Workout) data.getSerializableExtra("workout"));
-                    mWorkoutsAdapter.notifyItemInserted(workouts.size() - 1);
+                    workoutPlans.add((WorkoutPlan) data.getSerializableExtra("workout"));
+                    mWorkoutsAdapter.notifyItemInserted(workoutPlans.size() - 1);
                 }
             }
         }
@@ -75,11 +75,11 @@ public class MainActivity extends AppCompatActivity {
     public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsAdapter.WorkoutsViewHolder> {
 
         private final Context mContext;
-        private final ArrayList<Workout> workoutDays;
+        private final ArrayList<WorkoutPlan> workoutPlanDays;
 
-        public WorkoutsAdapter(Context mContext, ArrayList<Workout> workoutDays) {
+        public WorkoutsAdapter(Context mContext, ArrayList<WorkoutPlan> workoutPlanDays) {
             this.mContext = mContext;
-            this.workoutDays = workoutDays;
+            this.workoutPlanDays = workoutPlanDays;
         }
 
         @NonNull
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(getApplicationContext(), "Workout clicked", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "WorkoutPlan clicked", Toast.LENGTH_SHORT).show();
                 }
             });
             return new WorkoutsViewHolder(view);
@@ -98,18 +98,18 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull WorkoutsViewHolder holder, int position) {
-            Workout workout = workoutDays.get(position);
+            WorkoutPlan workoutPlan = workoutPlanDays.get(position);
 
-            holder.tvWorkoutName.setText(workout.getName());
+            holder.tvWorkoutName.setText(workoutPlan.getName());
 
-            // Build a String of all exercises of a Workout to be displayed
+            // Build a String of all exercises of a WorkoutPlan to be displayed
             StringBuilder exercises = new StringBuilder();
             boolean firstExercise = true;
-            for (Exercise exercise : workout.getExercises()) {
+            for (ExercisePlan exercisePlan : workoutPlan.getExercisePlans()) {
                 if (!firstExercise) {
                     exercises.append(", ");
                 }
-                exercises.append(exercise.getName());
+                exercises.append(exercisePlan.getName());
                 firstExercise = false;
             }
             exercises.lastIndexOf(exercises.toString());
@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getItemCount() {
-            return workoutDays.size();
+            return workoutPlanDays.size();
         }
 
         public class WorkoutsViewHolder extends RecyclerView.ViewHolder {

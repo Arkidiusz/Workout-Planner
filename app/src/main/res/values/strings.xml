@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">WorkoutPlanner</string>
     <string name="all_workout_name">Workout Name</string>
-    <string name="all_add_exercise">Add to workout</string>
+    <string name="all_add_exercise">Add to workoutPlan</string>
     <string name="all_sample_exercise">Bench Press</string>
     <string name="all_remove_exercise">Remove Exercise</string>
     <string name="all_sets_label">Sets:</string>
@@ -13,8 +13,8 @@
     <string name="isometric_time_label">Time: (s)</string>
     <string name="add_exercise_type_label">Exercise Type:</string>
     <string name="add_exercise_name_hint">Exercise Name</string>
-    <string name="add_existing_exercise_label">Choose an existing exercise:</string>
-    <string name="add_new_exercise_label">Create a new exercise:</string>
+    <string name="add_existing_exercise_label">Choose an existing exercisePlan:</string>
+    <string name="add_new_exercise_label">Create a new exercisePlan:</string>
     <string-array name="sample_workouts">
         <item>FBW 1</item>
         <item>FBW 2</item>
