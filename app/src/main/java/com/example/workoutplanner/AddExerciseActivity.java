@@ -7,10 +7,17 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
+import java.util.ArrayList;
+import java.util.List;
 
 //TODO create a method for instantiating Exercises with default values
 public class AddExerciseActivity extends AppCompatActivity {
@@ -27,6 +34,8 @@ public class AddExerciseActivity extends AppCompatActivity {
     private EditText etExerciseName;
     private Spinner spnExercises;
     private Spinner spnExerciseTypes;
+    private ExerciseViewModel exerciseViewModel;
+    private List<Exercise> exercises = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +44,26 @@ public class AddExerciseActivity extends AppCompatActivity {
 
         etExerciseName = findViewById(R.id.et_exercise_name);
 
-        // List of already existing exercises
+        // List of already existing exercises in the database
         spnExercises = findViewById(R.id.spn_existing_exercises);
-        ArrayAdapter<CharSequence> exerciseAdapter = ArrayAdapter.createFromResource(this, R.array.sample_exercises, android.R.layout.simple_spinner_item);
+//        final ArrayAdapter<CharSequence> exerciseAdapter = ArrayAdapter.createFromResource(this, R.array.sample_exercises, android.R.layout.simple_spinner_item);
+
+//        exerciseAdapter.addAll(exercises);
+////        exerciseAdapter.notifyDataSetChanged();
+        final ArrayAdapter<Exercise> exerciseAdapter = new ArrayAdapter<Exercise>(this,
+                android.R.layout.simple_spinner_item, exercises);
         exerciseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnExercises.setAdapter(exerciseAdapter);
 
+        exerciseViewModel = new ViewModelProvider(this).get(ExerciseViewModel.class);
+        exerciseViewModel.getAllExercises().observe(this, new Observer<List<Exercise>>() {
+            @Override
+            public void onChanged(List<Exercise> exercises) {
+                AddExerciseActivity.this.exercises.clear();
+                AddExerciseActivity.this.exercises.addAll(exercises);
+                exerciseAdapter.notifyDataSetChanged();
+            }
+        });
 
         // Spinner of types of exercises - tempo and isometric
         spnExerciseTypes = findViewById(R.id.spn_exercise_types);

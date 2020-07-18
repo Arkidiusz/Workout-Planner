@@ -14,4 +14,7 @@ public interface ExerciseDao {
 
     @Query("SELECT * from Exercise ORDER BY name ASC")
     LiveData<List<Exercise>> getAllExercises();
+
+    @Query("DELETE FROM Exercise")
+    void deleteAll();
 }
