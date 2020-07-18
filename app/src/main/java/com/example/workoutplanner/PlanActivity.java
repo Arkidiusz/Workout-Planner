@@ -78,8 +78,8 @@ public class PlanActivity extends AppCompatActivity {
         // List of planned Exercises for a workout
         RecyclerView rvExercises = findViewById(R.id.rv_exercises);
         exercisePlans = new ArrayList<>();//testing sample
-        exercisePlans.add(new ExercisePlan.TempoExercisePlan("Bench Press", 5, 5, 4, 0, 1, 0));
-        exercisePlans.add(new ExercisePlan.IsometricExercisePlan("Plank", 5, 60));
+//        exercisePlans.add(new ExercisePlan.TempoExercisePlan("Bench Press", 5, 5, 4, 0, 1, 0));
+//        exercisePlans.add(new ExercisePlan.IsometricExercisePlan("Plank", 5, 60));
         mExercisesAdapter = new ExercisesAdapter(this, exercisePlans);
         rvExercises.setAdapter(mExercisesAdapter);
         rvExercises.setLayoutManager(new LinearLayoutManager(this));
@@ -162,7 +162,7 @@ public class PlanActivity extends AppCompatActivity {
                 case 1: {
                     ExercisePlan.TempoExercisePlan exercise = (ExercisePlan.TempoExercisePlan) exercisePlans.get(position);
                     TempoViewHolder tempo_holder = (TempoViewHolder) holder;
-                    tempo_holder.tvExerciseName.setText(exercise.getName());
+                    tempo_holder.tvExerciseName.setText(exercise.getExercise().getName());
                     tempo_holder.etNoSets.setText(Integer.toString(exercise.getNoSets()));
                     tempo_holder.etNoReps.setText(Integer.toString(exercise.getNoReps()));
                     StringBuilder sb = new StringBuilder();
@@ -173,7 +173,7 @@ public class PlanActivity extends AppCompatActivity {
                 case 2: {
                     ExercisePlan.IsometricExercisePlan exercise = (ExercisePlan.IsometricExercisePlan) exercisePlans.get(position);
                     IsometricViewHolder isometric_holder = (IsometricViewHolder) holder;
-                    isometric_holder.tvExerciseName.setText(exercise.getName());
+                    isometric_holder.tvExerciseName.setText(exercise.getExercise().getName());
                     isometric_holder.etNoSets.setText(Integer.toString(exercise.getNoSets()));
                     isometric_holder.etTime.setText(Integer.toString(exercise.getTime()));
                     break;

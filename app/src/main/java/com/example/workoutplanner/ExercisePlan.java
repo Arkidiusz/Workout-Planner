@@ -6,21 +6,17 @@ import java.io.Serializable;
  * Class representing an ExercisePlan belonging to a WorkoutPlan
  */
 public class ExercisePlan implements Serializable {
-    private String name;
+    private Exercise exercise;
     private int noSets;
 
     //@TODO make private
-    public ExercisePlan(String name, int noSets) {
-        this.name = name;
+    public ExercisePlan(Exercise exercise, int noSets) {
+        this.exercise = exercise;
         this.noSets = noSets;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public Exercise getExercise() {
+        return exercise;
     }
 
     public int getNoSets() {
@@ -41,8 +37,9 @@ public class ExercisePlan implements Serializable {
         private int concentric;
         private int concentricPause;
 
-        public TempoExercisePlan(String name, int noSets, int noReps, int eccentric, int eccentricPause, int concentric, int concentricPause) {
-            super(name, noSets);
+        public TempoExercisePlan(Exercise exercise, int noSets, int noReps, int eccentric,
+                                 int eccentricPause, int concentric, int concentricPause) {
+            super(exercise, noSets);
             this.noReps = noReps;
             this.eccentric = eccentric;
             this.eccentricPause = eccentricPause;
@@ -94,8 +91,8 @@ public class ExercisePlan implements Serializable {
     public static class IsometricExercisePlan extends ExercisePlan {
         private int time;
 
-        public IsometricExercisePlan(String name, int noSets, int time) {
-            super(name, noSets);
+        public IsometricExercisePlan(Exercise exercise, int noSets, int time) {
+            super(exercise, noSets);
             this.time = time;
         }
 

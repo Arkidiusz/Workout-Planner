@@ -39,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
         String[] sampleWorkouts = getResources().getStringArray(R.array.sample_workouts);
         for (String s : sampleWorkouts) {
             ArrayList<ExercisePlan> sampleExercisePlans = new ArrayList<>();
-            sampleExercisePlans.add(new ExercisePlan("Bench Press", 5));
-            sampleExercisePlans.add(new ExercisePlan("Squat", 4));
+//            sampleExercisePlans.add(new ExercisePlan("Bench Press", 5));
+//            sampleExercisePlans.add(new ExercisePlan("Squat", 4));
             workoutPlans.add(new WorkoutPlan(s, sampleExercisePlans));
         }
         RecyclerView rvWorkouts = findViewById(R.id.rv_workouts);
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                 if (!firstExercise) {
                     exercises.append(", ");
                 }
-                exercises.append(exercisePlan.getName());
+                exercises.append(exercisePlan.getExercise().getName());
                 firstExercise = false;
             }
             exercises.lastIndexOf(exercises.toString());
