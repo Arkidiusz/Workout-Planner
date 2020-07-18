@@ -3,6 +3,7 @@ package com.example.workoutplanner;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -111,7 +112,7 @@ public class PlanActivity extends AppCompatActivity {
         if (requestCode == EXERCISE_REQUEST) {
             if (resultCode == RESULT_OK) {
                 if (data != null) {
-                    exercisePlans.add((ExercisePlan) data.getSerializableExtra("exercise"));
+                    exercisePlans.add((ExercisePlan) data.getSerializableExtra("exercisePlan"));
                     mExercisesAdapter.notifyItemInserted(exercisePlans.size() - 1);
                 }
             }
@@ -162,6 +163,7 @@ public class PlanActivity extends AppCompatActivity {
                 case 1: {
                     ExercisePlan.TempoExercisePlan exercise = (ExercisePlan.TempoExercisePlan) exercisePlans.get(position);
                     TempoViewHolder tempo_holder = (TempoViewHolder) holder;
+                    Log.i("XD", exercise.getExercise().toString());
                     tempo_holder.tvExerciseName.setText(exercise.getExercise().getName());
                     tempo_holder.etNoSets.setText(Integer.toString(exercise.getNoSets()));
                     tempo_holder.etNoReps.setText(Integer.toString(exercise.getNoReps()));
@@ -173,6 +175,7 @@ public class PlanActivity extends AppCompatActivity {
                 case 2: {
                     ExercisePlan.IsometricExercisePlan exercise = (ExercisePlan.IsometricExercisePlan) exercisePlans.get(position);
                     IsometricViewHolder isometric_holder = (IsometricViewHolder) holder;
+                    Log.i("XD", exercise.getExercise().toString());
                     isometric_holder.tvExerciseName.setText(exercise.getExercise().getName());
                     isometric_holder.etNoSets.setText(Integer.toString(exercise.getNoSets()));
                     isometric_holder.etTime.setText(Integer.toString(exercise.getTime()));

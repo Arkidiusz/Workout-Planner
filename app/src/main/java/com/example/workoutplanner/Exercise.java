@@ -46,7 +46,7 @@ public class Exercise implements Serializable {
         return name;
     }
 
-    public enum ExerciseType{
+    public enum ExerciseType implements Serializable{
         ISOMETRIC,
         TEMPO
     }
