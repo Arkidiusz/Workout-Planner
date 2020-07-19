@@ -44,9 +44,6 @@ public abstract class WorkoutPlannerDatabase extends RoomDatabase {
                 @Override
                 public void run() {
                     ExerciseDao exerciseDao = INSTANCE.exerciseDao();
-                    exerciseDao.deleteAll();
-                    exerciseDao.insert(new Exercise("Bench Press", Exercise.ExerciseType.TEMPO));
-                    exerciseDao.insert(new Exercise("Plank", Exercise.ExerciseType.ISOMETRIC));
                 }
             });
         }

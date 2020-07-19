@@ -18,9 +18,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import java.util.ArrayList;
 import java.util.List;
-
-//TODO create a method for instantiating Exercises with default values
-
 /**
  * Add new ExercisePlan to a WorkoutPlan, either from existing Exercising or newly created
  */
@@ -71,7 +68,9 @@ public class AddExerciseActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent resultIntent = new Intent();
                 ExercisePlan exercisePlan =
-                        new ExercisePlan.TempoExercisePlan((Exercise) spnExercises.getSelectedItem(), DEFAULT_SETS, DEFAULT_REPS, DEFAULT_ECCENTRIC, DEFAULT_ECCENTRIC_PAUSE, DEFAULT_CONCENTRIC, DEFAULT_CONCENTRIC_PAUSE);
+                        new ExercisePlan.TempoExercisePlan((Exercise) spnExercises.getSelectedItem(),
+                                DEFAULT_SETS, DEFAULT_REPS, DEFAULT_ECCENTRIC,
+                                DEFAULT_ECCENTRIC_PAUSE, DEFAULT_CONCENTRIC, DEFAULT_CONCENTRIC_PAUSE);
                 resultIntent.putExtra("exercisePlan", exercisePlan);
                 setResult(AppCompatActivity.RESULT_OK, resultIntent);
                 Toast.makeText(getApplicationContext(),
@@ -97,7 +96,15 @@ public class AddExerciseActivity extends AppCompatActivity {
                 Intent resultIntent = new Intent();
                 String exerciseName = etExerciseName.getText().toString();
                 //TODO handle the case where exerciseName is already used
-                if(!exerciseName.isEmpty()){
+                if(exerciseName.isEmpty()){
+                    Toast.makeText(getApplicationContext(),"Specify exercise name",
+                            Toast.LENGTH_SHORT).show();
+
+                } else if(!isExerciseNameFree(exerciseName)){
+                    Toast.makeText(getApplicationContext(),"Exercise name " + exerciseName +
+                            " is already used.", Toast.LENGTH_SHORT).show();
+                }
+                else{
                     Exercise.ExerciseType exerciseType =
                             (Exercise.ExerciseType) spnExerciseTypes.getSelectedItem();
                     Exercise exercise = new Exercise(exerciseName, exerciseType);
@@ -125,11 +132,22 @@ public class AddExerciseActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                     finish();
                 }
-                else{
-                    Toast.makeText(getApplicationContext(),"Specify exercise name",
-                            Toast.LENGTH_SHORT).show();
-                }
             }
         });
+    }
+
+    // Check if given name is not already used by another exercise
+    private boolean isExerciseNameFree(String string){
+        List<Exercise> exercises =  exerciseViewModel.getAllExercises().getValue();
+        if(exercises == null || exercises.isEmpty()){
+            return true;
+        }
+        else{
+            for(Exercise exercise : exercises){
+                if(exercise.getName().equals(string))
+                    return false;
+            }
+        }
+        return true;
     }
 }
