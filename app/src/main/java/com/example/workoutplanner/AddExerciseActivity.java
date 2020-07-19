@@ -2,14 +2,11 @@ package com.example.workoutplanner;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -47,7 +44,7 @@ public class AddExerciseActivity extends AppCompatActivity {
 
         // List of already existing exercises in the database
         spnExercises = findViewById(R.id.spn_existing_exercises);
-        final ArrayAdapter<Exercise> exerciseAdapter = new ArrayAdapter<Exercise>(this,
+        final ArrayAdapter<Exercise> exerciseAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, exercises);
         exerciseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnExercises.setAdapter(exerciseAdapter);
@@ -95,7 +92,6 @@ public class AddExerciseActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent resultIntent = new Intent();
                 String exerciseName = etExerciseName.getText().toString();
-                //TODO handle the case where exerciseName is already used
                 if(exerciseName.isEmpty()){
                     Toast.makeText(getApplicationContext(),"Specify exercise name",
                             Toast.LENGTH_SHORT).show();
@@ -122,8 +118,8 @@ public class AddExerciseActivity extends AppCompatActivity {
                                     DEFAULT_CONCENTRIC_PAUSE);
                             break;
                         default:
-                            throw new IllegalStateException("Unexpected value: " + exerciseType);
-                            //TODO handle this case somehow
+                            throw new IllegalStateException("Unexpected exerciseType enum: " +
+                                    exerciseType);
                     }
                     resultIntent.putExtra("exercisePlan", exercisePlan);
                     setResult(AppCompatActivity.RESULT_OK, resultIntent);

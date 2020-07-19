@@ -35,7 +35,6 @@ public class PlanActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plan);
 
-        //@TODO stop this from jumping to next editexts after entering value
         etWorkoutName = findViewById(R.id.et_workout_name);
 
         // Button used to save created workout session
@@ -45,15 +44,18 @@ public class PlanActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String workoutName = etWorkoutName.getText().toString();
                 if (!workoutName.isEmpty()) {
-                    WorkoutPlan workoutPlan = new WorkoutPlan(etWorkoutName.getText().toString(), exercisePlans);
+                    WorkoutPlan workoutPlan = new WorkoutPlan(etWorkoutName.getText().toString(),
+                            exercisePlans);
                     Intent resultIntent = new Intent();
                     resultIntent.putExtra("workoutPlan", workoutPlan);
                     setResult(AppCompatActivity.RESULT_OK, resultIntent);
-                    Toast.makeText(getApplicationContext(), "WorkoutPlan " + workoutName + " saved.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "WorkoutPlan " + workoutName
+                            + " saved.", Toast.LENGTH_SHORT).show();
                     finish();
                 }//@TODO Handle a case where a workout of same name exists
                 else {
-                    Toast.makeText(getApplicationContext(), "Please enter the name.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Please enter the name.",
+                            Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -71,7 +73,8 @@ public class PlanActivity extends AppCompatActivity {
         btnAddExercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PlanActivity.this, AddExerciseActivity.class);
+                Intent intent = new Intent(PlanActivity.this,
+                        AddExerciseActivity.class);
                 startActivityForResult(intent, EXERCISE_REQUEST);
             }
         });
@@ -84,13 +87,17 @@ public class PlanActivity extends AppCompatActivity {
         mExercisesAdapter = new ExercisesAdapter(this, exercisePlans);
         rvExercises.setAdapter(mExercisesAdapter);
         rvExercises.setLayoutManager(new LinearLayoutManager(this));
-        rvExercises.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        rvExercises.addItemDecoration(new DividerItemDecoration(this,
+                DividerItemDecoration.VERTICAL));
         // Drag RV items to reorder
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
-                ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.START | ItemTouchHelper.END, 0) {
+                ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.START
+                        | ItemTouchHelper.END, 0) {
             @Override
             // Swap positions of the items moved
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            public boolean onMove(@NonNull RecyclerView recyclerView,
+                                  @NonNull RecyclerView.ViewHolder viewHolder,
+                                  @NonNull RecyclerView.ViewHolder target) {
                 int fromPosition = viewHolder.getAdapterPosition();
                 int toPosition = target.getAdapterPosition();
                 Collections.swap(exercisePlans, fromPosition, toPosition);
@@ -161,19 +168,22 @@ public class PlanActivity extends AppCompatActivity {
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
             switch (holder.getItemViewType()) {
                 case 1: {
-                    ExercisePlan.TempoExercisePlan exercise = (ExercisePlan.TempoExercisePlan) exercisePlans.get(position);
+                    ExercisePlan.TempoExercisePlan exercise
+                            = (ExercisePlan.TempoExercisePlan) exercisePlans.get(position);
                     TempoViewHolder tempo_holder = (TempoViewHolder) holder;
                     Log.i("XD", exercise.getExercise().toString());
                     tempo_holder.tvExerciseName.setText(exercise.getExercise().getName());
                     tempo_holder.etNoSets.setText(Integer.toString(exercise.getNoSets()));
                     tempo_holder.etNoReps.setText(Integer.toString(exercise.getNoReps()));
                     StringBuilder sb = new StringBuilder();
-                    sb.append(exercise.getEccentric()).append(exercise.getEccentricPause()).append(exercise.getConcentric()).append(exercise.getConcentricPause());
+                    sb.append(exercise.getEccentric()).append(exercise.getEccentricPause())
+                            .append(exercise.getConcentric()).append(exercise.getConcentricPause());
                     tempo_holder.etTempo.setText(sb.toString());
                     break;
                 }
                 case 2: {
-                    ExercisePlan.IsometricExercisePlan exercise = (ExercisePlan.IsometricExercisePlan) exercisePlans.get(position);
+                    ExercisePlan.IsometricExercisePlan exercise
+                            = (ExercisePlan.IsometricExercisePlan) exercisePlans.get(position);
                     IsometricViewHolder isometric_holder = (IsometricViewHolder) holder;
                     Log.i("XD", exercise.getExercise().toString());
                     isometric_holder.tvExerciseName.setText(exercise.getExercise().getName());

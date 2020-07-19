@@ -1,7 +1,6 @@
 package com.example.workoutplanner;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;
@@ -13,10 +12,11 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Exercise.class}, version = 1, exportSchema = false)
-@TypeConverters({Exercise.class})
+@Database(entities = {Exercise.class, WorkoutPlan.class}, version = 2, exportSchema = false)
+@TypeConverters({Exercise.class, WorkoutPlan.class})
 public abstract class WorkoutPlannerDatabase extends RoomDatabase {
     public abstract ExerciseDao exerciseDao();
+    public abstract WorkoutPlanDao workoutPlanDao();
 
     private static WorkoutPlannerDatabase INSTANCE;
 
@@ -44,6 +44,7 @@ public abstract class WorkoutPlannerDatabase extends RoomDatabase {
                 @Override
                 public void run() {
                     ExerciseDao exerciseDao = INSTANCE.exerciseDao();
+                    WorkoutPlanDao workoutPlanDao = INSTANCE.workoutPlanDao();
                 }
             });
         }

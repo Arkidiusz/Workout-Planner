@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,34 +20,35 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Display a list of workoutPlans that can be added, modified and deleted by the user.
+ * Display a list of workoutPlans that can be accessed and added.
  */
 public class MainActivity extends AppCompatActivity {
 
     public static final int WORKOUT_REQUEST = 1;
-    private ArrayList<WorkoutPlan> workoutPlans;
+    private List<WorkoutPlan> workoutPlans = new ArrayList<>();
     private WorkoutsAdapter mWorkoutsAdapter;
+    private WorkoutPlanViewModel workoutPlanViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Setup RecyclerView of Workouts
-        workoutPlans = new ArrayList<>();
-        String[] sampleWorkouts = getResources().getStringArray(R.array.sample_workouts);
-        for (String s : sampleWorkouts) {
-            ArrayList<ExercisePlan> sampleExercisePlans = new ArrayList<>();
-//            sampleExercisePlans.add(new ExercisePlan("Bench Press", 5));
-//            sampleExercisePlans.add(new ExercisePlan("Squat", 4));
-            workoutPlans.add(new WorkoutPlan(s, sampleExercisePlans));
-        }
         RecyclerView rvWorkouts = findViewById(R.id.rv_workouts);
         mWorkoutsAdapter = new WorkoutsAdapter(this, workoutPlans);
         rvWorkouts.setAdapter(mWorkoutsAdapter);
         rvWorkouts.setLayoutManager(new LinearLayoutManager(this));
+
+        workoutPlanViewModel = new ViewModelProvider(this).get(WorkoutPlanViewModel.class);
+        workoutPlanViewModel.getAllWorkoutPlans().observe(this, new Observer<List<WorkoutPlan>>() {
+            @Override
+            public void onChanged(List<WorkoutPlan> workoutPlans) {
+                mWorkoutsAdapter.setWorkoutList(workoutPlans);
+            }
+        });
 
         //Setup FAB for adding workoutPlans
         FloatingActionButton fabAddWorkout = findViewById(R.id.btn_add_workout);
@@ -66,8 +68,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == WORKOUT_REQUEST) {
             if (resultCode == RESULT_OK) {
                 if (data != null) {
-                    workoutPlans.add((WorkoutPlan) data.getSerializableExtra("workout"));
-                    mWorkoutsAdapter.notifyItemInserted(workoutPlans.size() - 1);
+                    workoutPlanViewModel.insert((WorkoutPlan) data.getSerializableExtra("workoutPlan"));
                 }
             }
         }
@@ -76,11 +77,11 @@ public class MainActivity extends AppCompatActivity {
     public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsAdapter.WorkoutsViewHolder> {
 
         private final Context mContext;
-        private final ArrayList<WorkoutPlan> workoutPlanDays;
+        private List<WorkoutPlan> workoutPlans;
 
-        public WorkoutsAdapter(Context mContext, ArrayList<WorkoutPlan> workoutPlanDays) {
+        public WorkoutsAdapter(Context mContext, List<WorkoutPlan> workoutPlans) {
             this.mContext = mContext;
-            this.workoutPlanDays = workoutPlanDays;
+            this.workoutPlans = workoutPlans;
         }
 
         @NonNull
@@ -99,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull WorkoutsViewHolder holder, int position) {
-            WorkoutPlan workoutPlan = workoutPlanDays.get(position);
+            WorkoutPlan workoutPlan = workoutPlans.get(position);
 
             holder.tvWorkoutName.setText(workoutPlan.getName());
 
@@ -117,9 +118,16 @@ public class MainActivity extends AppCompatActivity {
             holder.tvExercises.setText(exercises);
         }
 
+        void setWorkoutList(List<WorkoutPlan> workoutPlans){
+            this.workoutPlans = workoutPlans;
+            notifyDataSetChanged();
+        }
+
         @Override
         public int getItemCount() {
-            return workoutPlanDays.size();
+            if(workoutPlans !=null)
+            return workoutPlans.size();
+            else return 0;
         }
 
         public class WorkoutsViewHolder extends RecyclerView.ViewHolder {

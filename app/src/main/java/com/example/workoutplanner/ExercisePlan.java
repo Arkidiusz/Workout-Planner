@@ -9,8 +9,7 @@ public class ExercisePlan implements Serializable {
     private Exercise exercise;
     private int noSets;
 
-    //@TODO make private
-    public ExercisePlan(Exercise exercise, int noSets) {
+    private ExercisePlan(Exercise exercise, int noSets) {
         this.exercise = exercise;
         this.noSets = noSets;
     }
