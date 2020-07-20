@@ -18,11 +18,11 @@ public class ExerciseViewModel extends AndroidViewModel {
         exercises = repository.getAllExercises();
     }
 
-    LiveData<List<Exercise>> getAllExercises(){
+    LiveData<List<Exercise>> getAllExercises() {
         return exercises;
     }
 
-    public void insert (Exercise exercise) {
+    public void insert(Exercise exercise) {
         repository.insert(exercise);
     }
 }

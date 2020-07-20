@@ -29,6 +29,19 @@ public class WorkoutPlan implements Serializable {
         this.exercisePlans = exercisePlans;
     }
 
+    @TypeConverter
+    public static String fromExercisePlans(ArrayList<ExercisePlan> exercisePlans) {
+        Gson gson = new Gson();
+        return gson.toJson(exercisePlans);
+    }
+
+    @TypeConverter
+    public static ArrayList<ExercisePlan> stringToExercisePlans(String value) {
+        Type exercisePlansType = new TypeToken<ArrayList<ExercisePlan>>() {
+        }.getType();
+        return new Gson().fromJson(value, exercisePlansType);
+    }
+
     @NonNull
     public String getName() {
         return name;
@@ -37,17 +50,5 @@ public class WorkoutPlan implements Serializable {
     @NonNull
     public ArrayList<ExercisePlan> getExercisePlans() {
         return exercisePlans;
-    }
-
-    @TypeConverter
-    public static String fromExercisePlans(ArrayList<ExercisePlan> exercisePlans){
-        Gson gson = new Gson();
-        return gson.toJson(exercisePlans);
-    }
-
-    @TypeConverter
-    public static ArrayList<ExercisePlan> stringToExercisePlans(String value){
-        Type exercisePlansType = new TypeToken<ArrayList<ExercisePlan>>(){}.getType();
-        return new Gson().fromJson(value, exercisePlansType);
     }
 }

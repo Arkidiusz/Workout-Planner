@@ -15,9 +15,19 @@ public class Exercise implements Serializable {
     @NonNull
     private ExerciseType exerciseType;
 
-    public Exercise(@NonNull String name, @NonNull ExerciseType exerciseType){
+    public Exercise(@NonNull String name, @NonNull ExerciseType exerciseType) {
         this.name = name;
         this.exerciseType = exerciseType;
+    }
+
+    @TypeConverter
+    public static String fromExerciseType(ExerciseType exerciseType) {
+        return exerciseType.toString();
+    }
+
+    @TypeConverter
+    public static ExerciseType stringToExerciseType(String exerciseTypeName) {
+        return ExerciseType.valueOf(exerciseTypeName);
     }
 
     @NonNull
@@ -30,23 +40,13 @@ public class Exercise implements Serializable {
         return exerciseType;
     }
 
-    @TypeConverter
-    public static String fromExerciseType(ExerciseType exerciseType){
-        return exerciseType.toString();
-    }
-
-    @TypeConverter
-    public static ExerciseType stringToExerciseType(String exerciseTypeName){
-        return ExerciseType.valueOf(exerciseTypeName);
-    }
-
     @NonNull
     @Override
-    public String toString(){
+    public String toString() {
         return name;
     }
 
-    public enum ExerciseType implements Serializable{
+    public enum ExerciseType implements Serializable {
         ISOMETRIC,
         TEMPO
     }

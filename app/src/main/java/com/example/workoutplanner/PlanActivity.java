@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Locale;
 
 public class PlanActivity extends AppCompatActivity {
 
@@ -101,7 +103,12 @@ public class PlanActivity extends AppCompatActivity {
                 int fromPosition = viewHolder.getAdapterPosition();
                 int toPosition = target.getAdapterPosition();
                 Collections.swap(exercisePlans, fromPosition, toPosition);
-                recyclerView.getAdapter().notifyItemMoved(fromPosition, toPosition);
+                if(recyclerView.getAdapter() == null){
+                    throw new NullPointerException("Unexpected null adapter");
+                }
+                else{
+                    recyclerView.getAdapter().notifyItemMoved(fromPosition, toPosition);
+                }
                 return false;
             }
 
@@ -160,8 +167,10 @@ public class PlanActivity extends AppCompatActivity {
                     View view = inflater.inflate(R.layout.item_isometric_exercise, parent, false);
                     return new IsometricViewHolder(view);
                 }
+                default:{
+                    throw new IllegalStateException("Unexpected viewType " + viewType);
+                }
             }
-            return null;
         }
 
         @Override
@@ -173,12 +182,13 @@ public class PlanActivity extends AppCompatActivity {
                     TempoViewHolder tempo_holder = (TempoViewHolder) holder;
                     Log.i("XD", exercise.getExercise().toString());
                     tempo_holder.tvExerciseName.setText(exercise.getExercise().getName());
-                    tempo_holder.etNoSets.setText(Integer.toString(exercise.getNoSets()));
-                    tempo_holder.etNoReps.setText(Integer.toString(exercise.getNoReps()));
-                    StringBuilder sb = new StringBuilder();
-                    sb.append(exercise.getEccentric()).append(exercise.getEccentricPause())
-                            .append(exercise.getConcentric()).append(exercise.getConcentricPause());
-                    tempo_holder.etTempo.setText(sb.toString());
+                    tempo_holder.etNoSets.setText(String.format(Locale.getDefault(), "%d",
+                            exercise.getNoSets()));
+                    tempo_holder.etNoReps.setText(String.format(Locale.getDefault(), "%d",
+                            exercise.getNoReps()));
+                    String sb = String.valueOf(exercise.getEccentric()) + exercise.getEccentricPause() +
+                            exercise.getConcentric() + exercise.getConcentricPause();
+                    tempo_holder.etTempo.setText(sb);
                     break;
                 }
                 case 2: {
@@ -187,8 +197,10 @@ public class PlanActivity extends AppCompatActivity {
                     IsometricViewHolder isometric_holder = (IsometricViewHolder) holder;
                     Log.i("XD", exercise.getExercise().toString());
                     isometric_holder.tvExerciseName.setText(exercise.getExercise().getName());
-                    isometric_holder.etNoSets.setText(Integer.toString(exercise.getNoSets()));
-                    isometric_holder.etTime.setText(Integer.toString(exercise.getTime()));
+                    isometric_holder.etNoSets.setText(String.format(Locale.getDefault(), "%d",
+                            exercise.getNoSets()));
+                    isometric_holder.etTime.setText(String.format(Locale.getDefault(),"%d",
+                            exercise.getTime()));
                     break;
                 }
             }

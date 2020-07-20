@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * Add new ExercisePlan to a WorkoutPlan, either from existing Exercising or newly created
  */
@@ -81,7 +82,7 @@ public class AddExerciseActivity extends AppCompatActivity {
         spnExerciseTypes = findViewById(R.id.spn_exercise_types);
         ArrayAdapter<Exercise.ExerciseType> exerciseTypeAdapter =
                 new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, Exercise.ExerciseType.values());
+                        android.R.layout.simple_spinner_item, Exercise.ExerciseType.values());
         exerciseTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnExerciseTypes.setAdapter(exerciseTypeAdapter);
 
@@ -92,15 +93,14 @@ public class AddExerciseActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent resultIntent = new Intent();
                 String exerciseName = etExerciseName.getText().toString();
-                if(exerciseName.isEmpty()){
-                    Toast.makeText(getApplicationContext(),"Specify exercise name",
+                if (exerciseName.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Specify exercise name",
                             Toast.LENGTH_SHORT).show();
 
-                } else if(!isExerciseNameFree(exerciseName)){
-                    Toast.makeText(getApplicationContext(),"Exercise name " + exerciseName +
+                } else if (!isExerciseNameFree(exerciseName)) {
+                    Toast.makeText(getApplicationContext(), "Exercise name " + exerciseName +
                             " is already used.", Toast.LENGTH_SHORT).show();
-                }
-                else{
+                } else {
                     Exercise.ExerciseType exerciseType =
                             (Exercise.ExerciseType) spnExerciseTypes.getSelectedItem();
                     Exercise exercise = new Exercise(exerciseName, exerciseType);
@@ -112,6 +112,7 @@ public class AddExerciseActivity extends AppCompatActivity {
                                     DEFAULT_SETS, DEFAULT_TIME);
                             break;
                         case TEMPO:
+                            exerciseViewModel.insert(exercise);
                             exercisePlan = new ExercisePlan.TempoExercisePlan(exercise,
                                     DEFAULT_SETS, DEFAULT_REPS, DEFAULT_ECCENTRIC,
                                     DEFAULT_ECCENTRIC_PAUSE, DEFAULT_CONCENTRIC,
@@ -133,14 +134,13 @@ public class AddExerciseActivity extends AppCompatActivity {
     }
 
     // Check if given name is not already used by another exercise
-    private boolean isExerciseNameFree(String string){
-        List<Exercise> exercises =  exerciseViewModel.getAllExercises().getValue();
-        if(exercises == null || exercises.isEmpty()){
+    private boolean isExerciseNameFree(String string) {
+        List<Exercise> exercises = exerciseViewModel.getAllExercises().getValue();
+        if (exercises == null || exercises.isEmpty()) {
             return true;
-        }
-        else{
-            for(Exercise exercise : exercises){
-                if(exercise.getName().equals(string))
+        } else {
+            for (Exercise exercise : exercises) {
+                if (exercise.getName().equals(string))
                     return false;
             }
         }

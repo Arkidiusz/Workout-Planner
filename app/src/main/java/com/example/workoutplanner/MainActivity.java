@@ -92,7 +92,9 @@ public class MainActivity extends AppCompatActivity {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(getApplicationContext(), "WorkoutPlan clicked", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(), "WorkoutPlan clicked", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, WorkoutSessionActivity.class);
+                    startActivity(intent);
                 }
             });
             return new WorkoutsViewHolder(view);
@@ -118,15 +120,15 @@ public class MainActivity extends AppCompatActivity {
             holder.tvExercises.setText(exercises);
         }
 
-        void setWorkoutList(List<WorkoutPlan> workoutPlans){
+        void setWorkoutList(List<WorkoutPlan> workoutPlans) {
             this.workoutPlans = workoutPlans;
             notifyDataSetChanged();
         }
 
         @Override
         public int getItemCount() {
-            if(workoutPlans !=null)
-            return workoutPlans.size();
+            if (workoutPlans != null)
+                return workoutPlans.size();
             else return 0;
         }
 

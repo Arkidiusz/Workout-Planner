@@ -11,15 +11,17 @@ public class WorkoutPlanViewModel extends AndroidViewModel {
     private WorkoutPlanRepository repository;
     private LiveData<List<WorkoutPlan>> allWorkoutPlans;
 
-    public WorkoutPlanViewModel(Application application){
+    public WorkoutPlanViewModel(Application application) {
         super(application);
         repository = new WorkoutPlanRepository(application);
         allWorkoutPlans = repository.getAllWorkoutPlans();
     }
 
-    LiveData<List<WorkoutPlan>> getAllWorkoutPlans(){ return allWorkoutPlans; }
+    LiveData<List<WorkoutPlan>> getAllWorkoutPlans() {
+        return allWorkoutPlans;
+    }
 
-    public void insert(WorkoutPlan workoutPlan){
+    public void insert(WorkoutPlan workoutPlan) {
         repository.insert(workoutPlan);
     }
 }
