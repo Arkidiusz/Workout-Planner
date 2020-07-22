@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,7 +20,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -89,20 +92,13 @@ public class MainActivity extends AppCompatActivity {
         public WorkoutsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(mContext);
             View view = inflater.inflate(R.layout.item_workout, parent, false);
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-//                    Toast.makeText(getApplicationContext(), "WorkoutPlan clicked", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(MainActivity.this, WorkoutSessionActivity.class);
-                    startActivity(intent);
-                }
-            });
             return new WorkoutsViewHolder(view);
         }
 
         @Override
         public void onBindViewHolder(@NonNull WorkoutsViewHolder holder, int position) {
             WorkoutPlan workoutPlan = workoutPlans.get(position);
+
 
             holder.tvWorkoutName.setText(workoutPlan.getName());
 
@@ -132,14 +128,24 @@ public class MainActivity extends AppCompatActivity {
             else return 0;
         }
 
-        public class WorkoutsViewHolder extends RecyclerView.ViewHolder {
+        public class WorkoutsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
             private TextView tvWorkoutName;
             private TextView tvExercises;
+            private CardView cv;
 
             public WorkoutsViewHolder(@NonNull View itemView) {
                 super(itemView);
                 tvWorkoutName = itemView.findViewById(R.id.tv_workout_name);
                 tvExercises = itemView.findViewById(R.id.tv_exercises);
+                cv = itemView.findViewById(R.id.cv_item_workout);
+                cv.setOnClickListener(this);
+            }
+
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(MainActivity.this, WorkoutSessionActivity.class);
+                intent.putExtra("workoutPlan", (Serializable) workoutPlans.get(getAdapterPosition()));
+                startActivity(intent);
             }
         }
     }
