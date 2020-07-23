@@ -1,4 +1,4 @@
-package com.example.workoutplanner;
+package com.example.workoutplanner.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.example.workoutplanner.R;
+import com.example.workoutplanner.database.Exercise;
+import com.example.workoutplanner.database.ExercisePlan;
 
 import java.util.ArrayList;
 import java.util.List;

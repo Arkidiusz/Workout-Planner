@@ -1,4 +1,4 @@
-package com.example.workoutplanner;
+package com.example.workoutplanner.database;
 
 import android.app.Application;
 
@@ -13,17 +13,17 @@ public class ExerciseRepository {
     private ExerciseDao exerciseDao;
     private LiveData<List<Exercise>> exercises;
 
-    ExerciseRepository(Application application) {
+    public ExerciseRepository(Application application) {
         WorkoutPlannerDatabase db = WorkoutPlannerDatabase.getDataBase(application);
         exerciseDao = db.exerciseDao();
         exercises = exerciseDao.getAllExercises();
     }
 
-    LiveData<List<Exercise>> getAllExercises() {
+    public LiveData<List<Exercise>> getAllExercises() {
         return exercises;
     }
 
-    void insert(final Exercise exercise) {
+    public void insert(final Exercise exercise) {
         WorkoutPlannerDatabase.databaseWriteExecutor.execute(new Runnable() {
             @Override
             public void run() {

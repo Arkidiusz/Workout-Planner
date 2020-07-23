@@ -1,4 +1,4 @@
-package com.example.workoutplanner;
+package com.example.workoutplanner.database;
 
 import java.io.Serializable;
 

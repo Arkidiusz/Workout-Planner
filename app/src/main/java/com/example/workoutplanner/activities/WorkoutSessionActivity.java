@@ -1,4 +1,4 @@
-package com.example.workoutplanner;
+package com.example.workoutplanner.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,11 +7,10 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.workoutplanner.R;
+import com.example.workoutplanner.database.WorkoutPlan;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class WorkoutSessionActivity extends AppCompatActivity {
     private String[] exercises = new String[]{"Bench Press", "Plank"};

@@ -1,4 +1,4 @@
-package com.example.workoutplanner;
+package com.example.workoutplanner.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -20,6 +19,10 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.workoutplanner.R;
+import com.example.workoutplanner.database.ExercisePlan;
+import com.example.workoutplanner.database.WorkoutPlan;
 
 import java.util.ArrayList;
 import java.util.Collections;
