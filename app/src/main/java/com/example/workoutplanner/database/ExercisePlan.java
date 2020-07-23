@@ -1,5 +1,7 @@
 package com.example.workoutplanner.database;
 
+import com.example.workoutplanner.database.Exercise.Exercise;
+
 import java.io.Serializable;
 
 /**

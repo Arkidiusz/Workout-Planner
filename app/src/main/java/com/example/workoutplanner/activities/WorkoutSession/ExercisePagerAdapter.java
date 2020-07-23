@@ -1,4 +1,4 @@
-package com.example.workoutplanner.activities;
+package com.example.workoutplanner.activities.WorkoutSession;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

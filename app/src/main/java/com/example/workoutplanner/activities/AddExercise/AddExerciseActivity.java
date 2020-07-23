@@ -1,4 +1,4 @@
-package com.example.workoutplanner.activities;
+package com.example.workoutplanner.activities.AddExercise;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +14,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.workoutplanner.R;
-import com.example.workoutplanner.database.Exercise;
+import com.example.workoutplanner.database.Exercise.Exercise;
 import com.example.workoutplanner.database.ExercisePlan;
 
 import java.util.ArrayList;
@@ -98,7 +98,7 @@ public class AddExerciseActivity extends AppCompatActivity {
                 Intent resultIntent = new Intent();
                 String exerciseName = etExerciseName.getText().toString();
                 if (exerciseName.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Specify exercise name",
+                    Toast.makeText(getApplicationContext(), "Specify Exercise name",
                             Toast.LENGTH_SHORT).show();
 
                 } else if (!isExerciseNameFree(exerciseName)) {
@@ -137,7 +137,7 @@ public class AddExerciseActivity extends AppCompatActivity {
         });
     }
 
-    // Check if given name is not already used by another exercise
+    // Check if given name is not already used by another Exercise
     private boolean isExerciseNameFree(String string) {
         List<Exercise> exercises = exerciseViewModel.getAllExercises().getValue();
         if (exercises == null || exercises.isEmpty()) {

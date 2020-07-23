@@ -1,10 +1,11 @@
-package com.example.workoutplanner.database;
+package com.example.workoutplanner.database.WorkoutPlan;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverter;
 
+import com.example.workoutplanner.database.ExercisePlan;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

@@ -1,4 +1,4 @@
-package com.example.workoutplanner.activities;
+package com.example.workoutplanner.activities.WorkoutSession;
 
 import android.os.Bundle;
 

@@ -1,4 +1,4 @@
-package com.example.workoutplanner.activities;
+package com.example.workoutplanner.activities.Plan;
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,8 +21,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.workoutplanner.R;
+import com.example.workoutplanner.activities.AddExercise.AddExerciseActivity;
 import com.example.workoutplanner.database.ExercisePlan;
-import com.example.workoutplanner.database.WorkoutPlan;
+import com.example.workoutplanner.database.WorkoutPlan.WorkoutPlan;
 
 import java.util.ArrayList;
 import java.util.Collections;

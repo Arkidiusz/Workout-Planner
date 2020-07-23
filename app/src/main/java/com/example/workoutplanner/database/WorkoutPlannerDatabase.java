@@ -9,6 +9,11 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.example.workoutplanner.database.WorkoutPlan.WorkoutPlan;
+import com.example.workoutplanner.database.WorkoutPlan.WorkoutPlanDao;
+import com.example.workoutplanner.database.Exercise.Exercise;
+import com.example.workoutplanner.database.Exercise.ExerciseDao;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -16,7 +21,7 @@ import java.util.concurrent.Executors;
 @TypeConverters({Exercise.class, WorkoutPlan.class})
 public abstract class WorkoutPlannerDatabase extends RoomDatabase {
     private static final int NUMBER_OF_THREADS = 4;
-    static final ExecutorService databaseWriteExecutor =
+    public static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
     private static WorkoutPlannerDatabase INSTANCE;
     private static RoomDatabase.Callback roomDatabaseCallback = new RoomDatabase.Callback() {

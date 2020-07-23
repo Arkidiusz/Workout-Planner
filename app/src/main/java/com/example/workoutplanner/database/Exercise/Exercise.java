@@ -1,4 +1,4 @@
-package com.example.workoutplanner.database;
+package com.example.workoutplanner.database.Exercise;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;

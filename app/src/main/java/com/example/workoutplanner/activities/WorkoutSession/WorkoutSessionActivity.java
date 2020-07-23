@@ -1,4 +1,4 @@
-package com.example.workoutplanner.activities;
+package com.example.workoutplanner.activities.WorkoutSession;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.workoutplanner.R;
-import com.example.workoutplanner.database.WorkoutPlan;
+import com.example.workoutplanner.database.WorkoutPlan.WorkoutPlan;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 

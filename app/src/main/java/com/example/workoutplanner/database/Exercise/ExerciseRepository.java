@@ -1,8 +1,10 @@
-package com.example.workoutplanner.database;
+package com.example.workoutplanner.database.Exercise;
 
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
+
+import com.example.workoutplanner.database.WorkoutPlannerDatabase;
 
 import java.util.List;
 

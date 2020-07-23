@@ -1,4 +1,4 @@
-package com.example.workoutplanner.activities;
+package com.example.workoutplanner.activities.Main;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,8 +18,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.workoutplanner.R;
+import com.example.workoutplanner.activities.Plan.PlanActivity;
+import com.example.workoutplanner.activities.WorkoutSession.WorkoutSessionActivity;
 import com.example.workoutplanner.database.ExercisePlan;
-import com.example.workoutplanner.database.WorkoutPlan;
+import com.example.workoutplanner.database.WorkoutPlan.WorkoutPlan;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.Serializable;

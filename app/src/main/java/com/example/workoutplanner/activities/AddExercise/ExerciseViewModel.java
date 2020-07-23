@@ -1,4 +1,4 @@
-package com.example.workoutplanner.activities;
+package com.example.workoutplanner.activities.AddExercise;
 
 import android.app.Application;
 
@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.example.workoutplanner.database.Exercise;
-import com.example.workoutplanner.database.ExerciseRepository;
+import com.example.workoutplanner.database.Exercise.Exercise;
+import com.example.workoutplanner.database.Exercise.ExerciseRepository;
 
 import java.util.List;
 
