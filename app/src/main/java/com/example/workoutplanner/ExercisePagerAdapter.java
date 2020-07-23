@@ -22,5 +22,5 @@ public class ExercisePagerAdapter extends FragmentStateAdapter {
     @Override
     public int getItemCount() {
         return 3;
-    }
+    } //@TODO change this to use set size
 }

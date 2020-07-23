@@ -7,6 +7,8 @@
     tools:context=".WorkoutSessionActivity"
     android:orientation="vertical">
 
+
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tl_exercise_plans"
         android:layout_width="match_parent"
@@ -18,4 +20,10 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/workout_session_button_text" />
 </LinearLayout>
