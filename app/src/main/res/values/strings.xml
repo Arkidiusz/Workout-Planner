@@ -18,8 +18,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="workout_session_button_text">Finish</string>
     <string name="all_weight">Weight (kg)</string>
-    <string name="all_time">Time (s):</string>
-    <string name="all_reps">Reps:</string>
+    <string name="all_time">Time (s)</string>
+    <string name="all_reps">Reps</string>
+    <string name="fragment_exercise_title_sample">Target: 5 x 5 at 4010</string>
     <string-array name="sample_workouts">
         <item>FBW 1</item>
         <item>FBW 2</item>

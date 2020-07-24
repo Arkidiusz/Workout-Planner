@@ -102,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
         public void onBindViewHolder(@NonNull WorkoutsViewHolder holder, int position) {
             WorkoutPlan workoutPlan = workoutPlans.get(position);
 
-
             holder.tvWorkoutName.setText(workoutPlan.getName());
 
             // Build a String of all exercises of a WorkoutPlan to be displayed
