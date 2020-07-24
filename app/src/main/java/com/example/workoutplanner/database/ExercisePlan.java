@@ -10,6 +10,7 @@ import java.io.Serializable;
 public class ExercisePlan implements Serializable {
     private Exercise exercise;
     private int noSets;
+    private String type; // for deserializing
 
     private ExercisePlan(Exercise exercise, int noSets) {
         this.exercise = exercise;
@@ -46,6 +47,7 @@ public class ExercisePlan implements Serializable {
             this.eccentricPause = eccentricPause;
             this.concentric = concentric;
             this.concentricPause = concentricPause;
+            super.type = getClass().getName();
         }
 
         public int getNoReps() {
@@ -87,6 +89,11 @@ public class ExercisePlan implements Serializable {
         public void setConcentricPause(int concentricPause) {
             this.concentricPause = concentricPause;
         }
+
+        public String getTempo(){
+            return String.valueOf(getEccentric()) + getEccentricPause() +
+                    getConcentric() + getConcentricPause();
+        }
     }
 
     public static class IsometricExercisePlan extends ExercisePlan {
@@ -95,6 +102,7 @@ public class ExercisePlan implements Serializable {
         public IsometricExercisePlan(Exercise exercise, int noSets, int time) {
             super(exercise, noSets);
             this.time = time;
+            super.type = getClass().getName();
         }
 
         public int getTime() {

@@ -13,7 +13,6 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 public class WorkoutSessionActivity extends AppCompatActivity {
-    private String[] exercises = new String[]{"Bench Press", "Plank"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +22,7 @@ public class WorkoutSessionActivity extends AppCompatActivity {
         final WorkoutPlan workoutPlan = (WorkoutPlan) intent.getSerializableExtra(
                 "workoutPlan");
         ViewPager2 viewpager2 = findViewById(R.id.vp_exercise_plans);
-        viewpager2.setAdapter(new ExercisePagerAdapter(this));
+        viewpager2.setAdapter(new ExercisePagerAdapter(this, workoutPlan));
         TabLayout tabLayout = findViewById(R.id.tl_exercise_plans);
         TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewpager2, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override

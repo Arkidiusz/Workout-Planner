@@ -1,12 +1,16 @@
 package com.example.workoutplanner.database.WorkoutPlan;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverter;
 
+import com.example.workoutplanner.RuntimeTypeAdapterFactory;
 import com.example.workoutplanner.database.ExercisePlan;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.Serializable;
@@ -33,14 +37,21 @@ public class WorkoutPlan implements Serializable {
     @TypeConverter
     public static String fromExercisePlans(ArrayList<ExercisePlan> exercisePlans) {
         Gson gson = new Gson();
+        Log.i("JSON", gson.toJson(exercisePlans));
         return gson.toJson(exercisePlans);
     }
 
     @TypeConverter
     public static ArrayList<ExercisePlan> stringToExercisePlans(String value) {
-        Type exercisePlansType = new TypeToken<ArrayList<ExercisePlan>>() {
-        }.getType();
-        return new Gson().fromJson(value, exercisePlansType);
+        Type exercisePlansType = new TypeToken<ArrayList<ExercisePlan>>() {}.getType();
+        RuntimeTypeAdapterFactory<ExercisePlan> adapter =
+                RuntimeTypeAdapterFactory.of(ExercisePlan.class, "type")
+                        .registerSubtype(ExercisePlan.TempoExercisePlan.class,
+                                ExercisePlan.TempoExercisePlan.class.getName())
+                        .registerSubtype(ExercisePlan.IsometricExercisePlan.class,
+                                ExercisePlan.IsometricExercisePlan.class.getName());
+        Gson gson = new GsonBuilder().registerTypeAdapterFactory(adapter).create();
+        return gson.fromJson(value, exercisePlansType);
     }
 
     @NonNull

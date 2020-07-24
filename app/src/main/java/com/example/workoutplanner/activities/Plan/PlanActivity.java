@@ -190,8 +190,7 @@ public class PlanActivity extends AppCompatActivity {
                             exercise.getNoSets()));
                     tempo_holder.etNoReps.setText(String.format(Locale.getDefault(), "%d",
                             exercise.getNoReps()));
-                    String sb = String.valueOf(exercise.getEccentric()) + exercise.getEccentricPause() +
-                            exercise.getConcentric() + exercise.getConcentricPause();
+                    String sb = exercise.getTempo();
                     tempo_holder.etTempo.setText(sb);
                     break;
                 }
