@@ -43,28 +43,7 @@ public class PlanActivity extends AppCompatActivity {
 
         etWorkoutName = findViewById(R.id.et_workout_name);
 
-        // Button used to save created workout session
-        Button btnSaveWorkout = findViewById(R.id.btn_save);
-        btnSaveWorkout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String workoutName = etWorkoutName.getText().toString();
-                if (!workoutName.isEmpty()) {
-                    WorkoutPlan workoutPlan = new WorkoutPlan(etWorkoutName.getText().toString(),
-                            exercisePlans);
-                    Intent resultIntent = new Intent();
-                    resultIntent.putExtra("workoutPlan", workoutPlan);
-                    setResult(AppCompatActivity.RESULT_OK, resultIntent);
-                    Toast.makeText(getApplicationContext(), "WorkoutPlan " + workoutName
-                            + " saved.", Toast.LENGTH_SHORT).show();
-                    finish();
-                }//@TODO Handle a case where a workout of same name exists
-                else {
-                    Toast.makeText(getApplicationContext(), "Please enter the name.",
-                            Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+
 
         // Abandon creation of new workout
         Button btnCancel = findViewById(R.id.btn_cancel);
@@ -86,7 +65,7 @@ public class PlanActivity extends AppCompatActivity {
         });
 
         // List of planned Exercises for a workout
-        RecyclerView rvExercises = findViewById(R.id.rv_exercises);
+        final RecyclerView rvExercises = findViewById(R.id.rv_exercises);
         exercisePlans = new ArrayList<>();//testing sample
 //        exercisePlans.add(new ExercisePlan.TempoExercisePlan("Bench Press", 5, 5, 4, 0, 1, 0));
 //        exercisePlans.add(new ExercisePlan.IsometricExercisePlan("Plank", 5, 60));
@@ -122,6 +101,56 @@ public class PlanActivity extends AppCompatActivity {
             }
         });
         itemTouchHelper.attachToRecyclerView(rvExercises);
+
+        // Button used to save created workout session
+        Button btnSaveWorkout = findViewById(R.id.btn_save);
+        btnSaveWorkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String workoutName = etWorkoutName.getText().toString();
+                if (!workoutName.isEmpty()) {
+
+                    for(int i = 0; i < rvExercises.getChildCount(); i++){
+                        RecyclerView.ViewHolder holder =
+                                rvExercises.getChildViewHolder(rvExercises.getChildAt(i));
+                        if(holder instanceof ExercisesAdapter.TempoViewHolder){
+                            ExercisesAdapter.TempoViewHolder tempoViewHolder =
+                                    (ExercisesAdapter.TempoViewHolder) holder;
+                            ExercisePlan.TempoExercisePlan exercisePlan =
+                                    (ExercisePlan.TempoExercisePlan) exercisePlans.get(i);
+                            exercisePlan.setNoSets(Integer.parseInt(tempoViewHolder
+                                    .etNoSets.getText().toString()));
+                            exercisePlan.setNoReps(Integer.parseInt(tempoViewHolder
+                                    .etNoReps.getText().toString()));
+                            exercisePlan.parseAndSetTempo(tempoViewHolder
+                                    .etTempo.getText().toString());
+
+                        }
+                        else if(holder instanceof ExercisesAdapter.IsometricViewHolder){
+                            ExercisesAdapter.IsometricViewHolder isometricViewHolder =
+                                    (ExercisesAdapter.IsometricViewHolder) holder;
+                            ExercisePlan.IsometricExercisePlan exercisePlan =
+                                    (ExercisePlan.IsometricExercisePlan) exercisePlans.get(i);
+                            exercisePlan.setNoSets(Integer.parseInt(isometricViewHolder
+                                    .etNoSets.getText().toString()));
+                            exercisePlan.setTime(Integer.parseInt(isometricViewHolder.etTime.getText().toString()));
+                        }
+                    }
+                        WorkoutPlan workoutPlan = new WorkoutPlan(etWorkoutName.getText().toString(),
+                                exercisePlans);
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra("workoutPlan", workoutPlan);
+                    setResult(AppCompatActivity.RESULT_OK, resultIntent);
+                    Toast.makeText(getApplicationContext(), "WorkoutPlan " + workoutName
+                            + " saved.", Toast.LENGTH_SHORT).show();
+                    finish();
+                }//@TODO Handle a case where a workout of same name exists
+                else {
+                    Toast.makeText(getApplicationContext(), "Please enter the name.",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     @Override

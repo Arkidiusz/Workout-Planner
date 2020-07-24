@@ -90,6 +90,18 @@ public class ExercisePlan implements Serializable {
             this.concentricPause = concentricPause;
         }
 
+        /**
+         *
+         * @param tempo: 4 digit string
+         */
+        public void parseAndSetTempo(String tempo){
+            char[] chars = tempo.toCharArray();
+            setEccentric(Character.getNumericValue(chars[0]));
+            setEccentricPause(Character.getNumericValue(chars[1]));
+            setConcentric(Character.getNumericValue(chars[2]));
+            setConcentricPause(Character.getNumericValue(chars[3]));
+        }
+
         public String getTempo(){
             return String.valueOf(getEccentric()) + getEccentricPause() +
                     getConcentric() + getConcentricPause();
