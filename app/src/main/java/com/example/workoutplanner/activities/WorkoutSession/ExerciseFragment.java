@@ -48,7 +48,6 @@ public class ExerciseFragment extends Fragment {
                 tvRepsOrTime.setText(R.string.all_time);
                 break;
             case TEMPO:
-
                 ExercisePlan.TempoExercisePlan tempoExercisePlan =
                         (ExercisePlan.TempoExercisePlan) exercisePlan;
                 tvExerciseLabel.setText(MessageFormat.format("Target: {0} x {1} at {2}",

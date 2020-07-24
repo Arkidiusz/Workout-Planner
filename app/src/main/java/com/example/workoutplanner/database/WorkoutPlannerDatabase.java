@@ -17,7 +17,7 @@ import com.example.workoutplanner.database.Exercise.ExerciseDao;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Exercise.class, WorkoutPlan.class}, version = 4, exportSchema = false)
+@Database(entities = {Exercise.class, WorkoutPlan.class}, version = 5, exportSchema = false)
 @TypeConverters({Exercise.class, WorkoutPlan.class})
 public abstract class WorkoutPlannerDatabase extends RoomDatabase {
     private static final int NUMBER_OF_THREADS = 4;

@@ -69,10 +69,25 @@ public class AddExerciseActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent resultIntent = new Intent();
-                ExercisePlan exercisePlan =
-                        new ExercisePlan.TempoExercisePlan((Exercise) spnExercises.getSelectedItem(),
+                Exercise exercise = (Exercise) spnExercises.getSelectedItem();
+                ExercisePlan exercisePlan;
+                switch(exercise.getExerciseType()){
+                    case ISOMETRIC:{
+                        exercisePlan = new ExercisePlan.IsometricExercisePlan(exercise,
+                                DEFAULT_SETS, DEFAULT_TIME);
+                        break;
+                    }
+                    case TEMPO:{
+                        exercisePlan = new ExercisePlan
+                                .TempoExercisePlan((Exercise) spnExercises.getSelectedItem(),
                                 DEFAULT_SETS, DEFAULT_REPS, DEFAULT_ECCENTRIC,
-                                DEFAULT_ECCENTRIC_PAUSE, DEFAULT_CONCENTRIC, DEFAULT_CONCENTRIC_PAUSE);
+                                DEFAULT_ECCENTRIC_PAUSE, DEFAULT_CONCENTRIC,
+                                DEFAULT_CONCENTRIC_PAUSE);
+                        break;
+                    }
+                    default: throw new IllegalStateException("Unexpected exerciseType enum.");
+                }
+
                 resultIntent.putExtra("exercisePlan", exercisePlan);
                 setResult(AppCompatActivity.RESULT_OK, resultIntent);
                 Toast.makeText(getApplicationContext(),
@@ -123,8 +138,7 @@ public class AddExerciseActivity extends AppCompatActivity {
                                     DEFAULT_CONCENTRIC_PAUSE);
                             break;
                         default:
-                            throw new IllegalStateException("Unexpected exerciseType enum: " +
-                                    exerciseType);
+                            throw new IllegalStateException("Unexpected exerciseType enum");
                     }
                     resultIntent.putExtra("exercisePlan", exercisePlan);
                     setResult(AppCompatActivity.RESULT_OK, resultIntent);
