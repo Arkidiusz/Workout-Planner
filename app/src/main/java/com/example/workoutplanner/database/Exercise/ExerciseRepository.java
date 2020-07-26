@@ -8,9 +8,6 @@ import com.example.workoutplanner.database.WorkoutPlannerDatabase;
 
 import java.util.List;
 
-/**
- * Provides database access (Exercise only) for the rest of the app
- */
 public class ExerciseRepository {
     private ExerciseDao exerciseDao;
     private LiveData<List<Exercise>> exercises;
