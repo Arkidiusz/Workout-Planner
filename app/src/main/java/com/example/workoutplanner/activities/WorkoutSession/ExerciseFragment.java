@@ -19,9 +19,11 @@ import android.widget.TextView;
 import com.example.workoutplanner.R;
 import com.example.workoutplanner.activities.Main.MainActivity;
 import com.example.workoutplanner.database.Exercise.Exercise;
+import com.example.workoutplanner.database.ExerciseLog.ExerciseLog;
 import com.example.workoutplanner.database.ExercisePlan;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.threeten.bp.LocalDate;
 import org.w3c.dom.Text;
 
 import java.text.MessageFormat;
@@ -33,6 +35,8 @@ public class ExerciseFragment extends Fragment {
     private ExercisePlan exercisePlan;
     private FloatingActionButton fabAddSet;
     private FloatingActionButton fabRemoveSet;
+
+    private RecyclerView rvSets;
 
     public ExerciseFragment(ExercisePlan exercisePlan) {
         this.exercisePlan = exercisePlan;
@@ -70,7 +74,7 @@ public class ExerciseFragment extends Fragment {
         }
 
         //RecyclerView
-        RecyclerView rvSets = view.findViewById(R.id.rv_sets);
+        rvSets = view.findViewById(R.id.rv_sets);
         final SetsAdapter setsAdapter = new SetsAdapter(view.getContext(), exercisePlan.getNoSets());
         rvSets.setAdapter(setsAdapter);
         rvSets.setLayoutManager(new LinearLayoutManager(view.getContext()));
@@ -96,6 +100,32 @@ public class ExerciseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_exercise, container, false);
+    }
+
+    /**
+     *
+     * @return a list of ExerciseLogs generated from user input
+     */
+    public ArrayList<ExerciseLog> getExerciseLogs(){
+        ArrayList<ExerciseLog> exerciseLogs = new ArrayList<>();
+        for(int i = 0; i < rvSets.getChildCount(); i++) {
+            RecyclerView.ViewHolder holder =
+                    rvSets.getChildViewHolder(rvSets.getChildAt(i));
+            SetsAdapter.SetsViewHolder setsViewHolder = (SetsAdapter.SetsViewHolder) holder;
+            if(exercisePlan.getExercise().getExerciseType() == Exercise.ExerciseType.TEMPO){
+                exerciseLogs.add(new ExerciseLog(LocalDate.now(),
+                        exercisePlan.getExercise().getName(),
+                        Double.parseDouble(setsViewHolder.etWeight.getText().toString()),-1,
+                        Integer.parseInt(setsViewHolder.etRepsOrTime.getText().toString())));
+            }
+            else{
+                exerciseLogs.add(new ExerciseLog(LocalDate.now(),
+                        exercisePlan.getExercise().getName(),
+                        Double.parseDouble(setsViewHolder.etWeight.getText().toString()),
+                        Integer.parseInt(setsViewHolder.etRepsOrTime.getText().toString()), -1));
+            }
+        }
+        return exerciseLogs;
     }
 
     public class SetsAdapter extends RecyclerView.Adapter<ExerciseFragment.SetsAdapter.SetsViewHolder>{
@@ -157,9 +187,7 @@ public class ExerciseFragment extends Fragment {
             }
 
             @Override
-            public void onClick(View view) {
-
-            }
+            public void onClick(View view) { }
         }
     }
 }

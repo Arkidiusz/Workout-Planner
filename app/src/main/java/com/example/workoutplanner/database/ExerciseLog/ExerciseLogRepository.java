@@ -19,13 +19,13 @@ public class ExerciseLogRepository {
         exerciseLogDao = db.exerciseLogDao();
     }
 
-    public List<ExerciseLog> getAllExerciseLogs() {
+    public LiveData<List<ExerciseLog>> getAllExerciseLogs() {
         return exerciseLogDao.getAllExerciseLogs();
     }
-    public List<ExerciseLog> getExerciseLogsAtDate(LocalDate date) {
+    public LiveData<List<ExerciseLog>> getExerciseLogsAtDate(LocalDate date) {
         return exerciseLogDao.getExerciseLogsAtDate(date);
     }
-    public List<ExerciseLog> getExerciseLogsOfName(String exerciseName) {
+    public LiveData<List<ExerciseLog>> getExerciseLogsOfName(String exerciseName) {
         return exerciseLogDao.getExerciseLogsOfName(exerciseName);
     }
 
