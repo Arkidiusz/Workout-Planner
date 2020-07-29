@@ -19,7 +19,7 @@ import com.example.workoutplanner.database.Exercise.ExerciseDao;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Exercise.class, WorkoutPlan.class, ExerciseLog.class}, version = 6,
+@Database(entities = {Exercise.class, WorkoutPlan.class, ExerciseLog.class}, version = 7,
         exportSchema = false)
 @TypeConverters({Exercise.class, WorkoutPlan.class, ExerciseLog.class})
 public abstract class WorkoutPlannerDatabase extends RoomDatabase {

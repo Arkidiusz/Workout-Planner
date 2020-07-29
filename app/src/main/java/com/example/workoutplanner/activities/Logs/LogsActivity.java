@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.example.workoutplanner.R;
 import com.example.workoutplanner.activities.Main.WorkoutPlanViewModel;
@@ -25,5 +26,7 @@ public class LogsActivity extends AppCompatActivity {
 
         exerciseLogsViewModel = new ViewModelProvider(this).get(ExerciseLogsViewModel.class);
         LiveData<List<ExerciseLog>> exerciseLogs = exerciseLogsViewModel.getAllExerciseLogs();
+        TextView tv = findViewById(R.id.textView);
+        tv.setText(exerciseLogs.getValue().toString());
     }
 }

@@ -28,6 +28,7 @@ import com.example.workoutplanner.activities.WorkoutSession.WorkoutSessionActivi
 import com.example.workoutplanner.database.ExercisePlan;
 import com.example.workoutplanner.database.WorkoutPlan.WorkoutPlan;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        AndroidThreeTen.init(this);
 
         RecyclerView rvWorkouts = findViewById(R.id.rv_workouts);
         mWorkoutsAdapter = new WorkoutsAdapter(this, workoutPlans);

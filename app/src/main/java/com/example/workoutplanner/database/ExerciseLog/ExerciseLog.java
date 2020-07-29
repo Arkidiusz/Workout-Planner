@@ -18,7 +18,8 @@ import java.util.Locale;
  */
 @Entity
 public class ExerciseLog {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    private int logID;
     @NonNull
     private LocalDate date;
     @NonNull
@@ -66,5 +67,13 @@ public class ExerciseLog {
     @TypeConverter
     public static LocalDate stringToLocalDate(String string){
         return LocalDate.parse(string);
+    }
+
+    public int getLogID() {
+        return logID;
+    }
+
+    public void setLogID(int logID) {
+        this.logID = logID;
     }
 }
