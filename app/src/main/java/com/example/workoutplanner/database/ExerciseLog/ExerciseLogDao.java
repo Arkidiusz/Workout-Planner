@@ -14,21 +14,20 @@ public interface ExerciseLogDao {
     void insert(ExerciseLog exerciseLog);
 
     @Query("SELECT * from ExerciseLog ORDER BY date ASC")
-    LiveData<List<ExerciseLog>> getAllExerciseLogs();
+    List<ExerciseLog> getAllExerciseLogs();
 
-    /**
-     * @param date of WorkoutSession
-     * @return a list of all ExerciseLogs at a given date (entire workout session)
-     */
-    @Query("SELECT * from ExerciseLog WHERE (date = :date) ORDER BY date ASC")
-    LiveData<List<ExerciseLog>> getExerciseLogsAtDate(LocalDate date);
-
-    /**
-     * @param exerciseName uniquely identifies an exercise
-     * @return a list of ExerciseLogs of given exerciseName
-     */
     @Query("SELECT * from ExerciseLog WHERE (exerciseName = :exerciseName) ORDER BY date ASC")
-    LiveData<List<ExerciseLog>> getExerciseLogsOfName(String exerciseName);
+    List<ExerciseLog> getExerciseLogsOfName(String exerciseName);
+
+    @Query("SELECT DISTINCT date from ExerciseLog ORDER BY date DESC")
+    List<LocalDate> getAllDates();
+
+    @Query("SELECT DISTINCT date from ExerciseLog WHERE exerciseName = :exerciseName ORDER BY " +
+            "date DESC")
+    List<LocalDate> getDatesOfExercise(String exerciseName);
+
+    @Query("SELECT DISTINCT exerciseName from ExerciseLog ORDER BY exerciseName ASC")
+    List<String> getAllExerciseNames();
 
     @Query("DELETE FROM ExerciseLog")
     void deleteAll();

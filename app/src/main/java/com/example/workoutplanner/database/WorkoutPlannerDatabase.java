@@ -36,6 +36,7 @@ public abstract class WorkoutPlannerDatabase extends RoomDatabase {
                 public void run() {
                     ExerciseDao exerciseDao = INSTANCE.exerciseDao();
                     WorkoutPlanDao workoutPlanDao = INSTANCE.workoutPlanDao();
+                    ExerciseLogDao exerciseLogDao = INSTANCE.exerciseLogDao();
                 }
             });
         }

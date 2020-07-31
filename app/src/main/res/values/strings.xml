@@ -21,6 +21,9 @@
     <string name="all_time">Time (s)</string>
     <string name="all_reps">Reps</string>
     <string name="fragment_exercise_title_sample">Target: 5 x 5 at 4010</string>
+    <string name="logs_chart">Chart</string>
+    <string name="exercise_sample_set">Set 1: 30kg x 5\nSet 2: 30kg x 5</string>
+    <string name="exercise_log_sample_date">31/07/2020</string>
     <string-array name="sample_workouts">
         <item>FBW 1</item>
         <item>FBW 2</item>
