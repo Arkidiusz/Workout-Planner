@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,11 +16,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.workoutplanner.R;
+import com.example.workoutplanner.activities.chart.ChartActivity;
 import com.example.workoutplanner.database.Exercise.Exercise;
 import com.example.workoutplanner.database.ExerciseLog.ExerciseLog;
 import com.example.workoutplanner.database.ExerciseLog.ExerciseLogDao;
@@ -28,6 +31,7 @@ import com.example.workoutplanner.database.WorkoutPlannerDatabase;
 
 import org.threeten.bp.LocalDate;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -37,6 +41,7 @@ public class LogsActivity extends AppCompatActivity {
     private List<ExerciseLog> exerciseLogs;
     private List<String> exercises;
     private List<LocalDate> dates;
+    private Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +66,7 @@ public class LogsActivity extends AppCompatActivity {
             }
         }
 
-        Spinner spinner = findViewById(R.id.spn_exercise_logs);
+        spinner = findViewById(R.id.spn_exercise_logs);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_dropdown_item, exercises);
         spinner.setAdapter(adapter);
@@ -125,6 +130,26 @@ public class LogsActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) { }
         });
+
+        Button btnChart = findViewById(R.id.btn_chart);
+        btnChart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LogsActivity.this, ChartActivity.class);
+                intent.putExtra("exerciseName", spinner.getSelectedItem().toString());
+                startActivity(intent);
+            }
+        });
+    }
+
+    /**
+     * Use Epley formula to estimate one-repetition maximum
+     * @param weight - weight lifted
+     * @param reps - number of times lifted
+     * @return an estimate of 1RM
+     */
+    public static double estimate1RM(double weight, int reps){
+        return weight * (1 + (double) reps / 30);
     }
 
     private static class ExerciseLogsAdapter extends RecyclerView.Adapter<ExerciseLogsAdapter.ExerciseLogsViewHolder>  {
@@ -160,6 +185,7 @@ public class LogsActivity extends AppCompatActivity {
                     }
                 }
                 String exerciseSets = "";
+                double current1RM = 0;
                 StringBuilder stringBuilder = new StringBuilder();
                 for(int i = 0; i < exerciseLogs.size(); i++){
                     ExerciseLog exerciseLog = exerciseLogs.get(i);
@@ -169,9 +195,22 @@ public class LogsActivity extends AppCompatActivity {
                     }
                     else{
                         stringBuilder.append(exerciseLog.getReps()).append("\n");
+                        // Additionally, estimate 1RM
+                        double _1RM = LogsActivity.estimate1RM(exerciseLog.getWeight(),
+                                exerciseLog.getReps());
+                        if(_1RM > current1RM){
+                            current1RM = _1RM;
+                        }
                     }
                 }
                 holder.tvSets.setText(stringBuilder.toString());
+                if(current1RM > 0) {
+                    holder.tv1RM.setText(MessageFormat.format("1RM: {0}kg", String.format("%.2f",
+                            current1RM)));
+                }
+                else{
+                    holder.tv1RM.setText("");
+                }
             }
         }
 
@@ -189,11 +228,13 @@ public class LogsActivity extends AppCompatActivity {
         public static class ExerciseLogsViewHolder extends RecyclerView.ViewHolder{
             private TextView tvDate;
             private TextView tvSets;
+            private TextView tv1RM;
 
             public ExerciseLogsViewHolder(@NonNull View itemView) {
                 super(itemView);
                 tvDate = itemView.findViewById(R.id.tv_date);
                 tvSets = itemView.findViewById(R.id.tv_sets);
+                tv1RM = itemView.findViewById(R.id.tv_1RM);
             }
         }
     }
