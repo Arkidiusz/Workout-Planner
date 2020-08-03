@@ -1,20 +1,20 @@
 <resources>
     <string name="app_name">WorkoutPlanner</string>
     <string name="all_workout_name">Workout Name</string>
-    <string name="all_add_exercise">Add to workoutPlan</string>
+    <string name="all_add_exercise">Add Exercise to this Plan</string>
     <string name="all_sample_exercise">Bench Press</string>
     <string name="all_remove_exercise">Remove Exercise</string>
     <string name="all_sets_label">Sets:</string>
     <string name="all_reps_label">Reps:</string>
     <string name="main_title">Your Workouts:</string>
     <string name="plan_title">Plan Workout</string>
-    <string name="plan_save_workout">Save Workout</string>
+    <string name="plan_save_workout">Save and finish Planning</string>
     <string name="tempo_label">Tempo:</string>
     <string name="isometric_time_label">Time: (s)</string>
     <string name="add_exercise_type_label">Exercise Type:</string>
     <string name="add_exercise_name_hint">Exercise Name</string>
-    <string name="add_existing_exercise_label">Choose an existing exercisePlan:</string>
-    <string name="add_new_exercise_label">Create a new exercisePlan:</string>
+    <string name="add_existing_exercise_label">Choose an existing exercise</string>
+    <string name="add_new_exercise_label">Create a new exercise</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="workout_session_button_text">Finish</string>
     <string name="all_weight">Weight (kg)</string>

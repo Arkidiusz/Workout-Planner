@@ -5,14 +5,20 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="Your Workouts"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.chart.ChartActivity"></activity>
-        <activity android:name=".activities.logs.LogsActivity" />
+        <activity
+            android:name=".activities.chart.ChartActivity"
+            android:label="1RM chart" />
+        <activity
+            android:name=".activities.logs.LogsActivity"
+            android:label="Exercise Logs"/>
         <activity android:name=".activities.workout_session.WorkoutSessionActivity" />
-        <activity android:name=".activities.add_exercise.AddExerciseActivity" />
+        <activity
+            android:name=".activities.add_exercise.AddExerciseActivity"
+            android:label="Add Exercise to Workout Plan"/>
         <activity
             android:name=".activities.plan.PlanActivity"
             android:label="@string/plan_title" />

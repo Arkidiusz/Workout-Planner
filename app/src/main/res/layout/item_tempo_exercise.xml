@@ -13,7 +13,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@android:color/white">
 
             <EditText
                 android:id="@+id/et_no_sets"
@@ -25,6 +26,8 @@
                 android:inputType="number"
                 android:text="5"
                 android:textAlignment="center"
+                android:textColor="@color/primaryTextColor"
+                android:textColorLink="@color/primaryColor"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_sets_label" />
 
@@ -37,6 +40,7 @@
                 android:inputType="number"
                 android:text="5"
                 android:textAlignment="center"
+                android:textColor="@color/primaryTextColor"
                 app:layout_constraintEnd_toStartOf="@+id/et_tempo"
                 app:layout_constraintStart_toEndOf="@+id/et_no_sets"
                 app:layout_constraintTop_toBottomOf="@+id/tv_reps_label" />
@@ -51,6 +55,7 @@
                 android:inputType="number"
                 android:text="4010"
                 android:textAlignment="center"
+                android:textColor="@color/primaryTextColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/btn_remove_exercise" />
 
@@ -58,8 +63,11 @@
                 android:id="@+id/btn_remove_exercise"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="2dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:background="@android:color/transparent"
                 android:contentDescription="@string/all_remove_exercise"
+                android:tint="@color/primaryTextColor"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/delete" />
@@ -69,6 +77,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
+                android:tint="@color/primaryTextColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -80,6 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="@string/tempo_label"
+                android:textColor="@color/primaryTextColor"
                 app:layout_constraintBottom_toTopOf="@+id/et_tempo"
                 app:layout_constraintEnd_toEndOf="@+id/et_tempo"
                 app:layout_constraintStart_toStartOf="@+id/et_tempo"
@@ -91,6 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="@string/all_reps_label"
+                android:textColor="@color/primaryTextColor"
                 app:layout_constraintEnd_toEndOf="@+id/et_no_reps"
                 app:layout_constraintStart_toStartOf="@+id/et_no_reps"
                 app:layout_constraintTop_toBottomOf="@+id/tv_exercise_name" />
@@ -101,6 +112,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="@string/all_sets_label"
+                android:textColor="@color/primaryTextColor"
                 app:layout_constraintEnd_toEndOf="@+id/et_no_sets"
                 app:layout_constraintStart_toStartOf="@+id/et_no_sets"
                 app:layout_constraintTop_toBottomOf="@+id/tv_exercise_name" />
@@ -112,6 +124,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
                 android:text="@string/all_sample_exercise"
+                android:textColor="@android:color/black"
                 android:textSize="24sp"
                 app:layout_constraintStart_toEndOf="@+id/tv_tempo_drag"
                 app:layout_constraintTop_toTopOf="parent" />

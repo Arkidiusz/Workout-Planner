@@ -8,11 +8,11 @@
     tools:context=".activities.workout_session.WorkoutSessionActivity">
 
 
-    <Button
-        android:id="@+id/btn_finish_session"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tl_exercise_plans"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/workout_session_button_text" />
+        app:tabMode="scrollable" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/vp_exercise_plans"
@@ -20,11 +20,11 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tl_exercise_plans"
+    <Button
+        android:id="@+id/btn_finish_session"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabMode="scrollable" />
+        android:text="@string/workout_session_button_text" />
 
 
 </LinearLayout>
