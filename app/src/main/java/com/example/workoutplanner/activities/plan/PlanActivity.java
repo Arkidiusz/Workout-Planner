@@ -43,16 +43,6 @@ public class PlanActivity extends AppCompatActivity {
 
         etWorkoutName = findViewById(R.id.et_workout_name);
 
-
-        // Abandon creation of new workout
-        Button btnCancel = findViewById(R.id.btn_cancel);
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
         Button btnAddExercise = findViewById(R.id.btn_add_exercise);
         btnAddExercise.setOnClickListener(new View.OnClickListener() {
             @Override
