@@ -1,11 +1,11 @@
-package com.example.workoutplanner.database.ExerciseLog;
+package com.example.workoutplanner.database.exercise_log;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
 import org.threeten.bp.LocalDate;
+
 import java.util.List;
 
 @Dao

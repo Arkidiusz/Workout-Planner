@@ -4,27 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.WorkoutSession.WorkoutSessionActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".activities.workout_session.WorkoutSessionActivity">
 
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tl_exercise_plans"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:tabMode="scrollable"/>
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/vp_exercise_plans"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
 
     <Button
         android:id="@+id/btn_finish_session"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/workout_session_button_text" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vp_exercise_plans"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tl_exercise_plans"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabMode="scrollable" />
 
 
 </LinearLayout>

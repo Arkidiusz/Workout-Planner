@@ -1,7 +1,12 @@
-package com.example.workoutplanner.activities.WorkoutSession;
+package com.example.workoutplanner.activities.workout_session;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,22 +14,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.TextView;
-
 import com.example.workoutplanner.R;
-import com.example.workoutplanner.activities.Main.MainActivity;
-import com.example.workoutplanner.database.Exercise.Exercise;
-import com.example.workoutplanner.database.ExerciseLog.ExerciseLog;
+import com.example.workoutplanner.database.exercise.Exercise;
+import com.example.workoutplanner.database.exercise_log.ExerciseLog;
 import com.example.workoutplanner.database.ExercisePlan;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.threeten.bp.LocalDate;
-import org.w3c.dom.Text;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -55,7 +51,7 @@ public class ExerciseFragment extends Fragment {
         // Set label texts according to ExercisePlan data
         TextView tvExerciseLabel = view.findViewById(R.id.tv_exercise_label);
         TextView tvRepsOrTime = view.findViewById(R.id.tv_reps_or_time);
-        switch(exercisePlan.getExercise().getExerciseType()){
+        switch (exercisePlan.getExercise().getExerciseType()) {
             case ISOMETRIC:
                 ExercisePlan.IsometricExercisePlan isometricExercisePlan =
                         (ExercisePlan.IsometricExercisePlan) exercisePlan;
@@ -103,22 +99,20 @@ public class ExerciseFragment extends Fragment {
     }
 
     /**
-     *
      * @return a list of ExerciseLogs generated from user input
      */
-    public ArrayList<ExerciseLog> getExerciseLogs(){
+    public ArrayList<ExerciseLog> getExerciseLogs() {
         ArrayList<ExerciseLog> exerciseLogs = new ArrayList<>();
-        for(int i = 0; i < rvSets.getChildCount(); i++) {
+        for (int i = 0; i < rvSets.getChildCount(); i++) {
             RecyclerView.ViewHolder holder =
                     rvSets.getChildViewHolder(rvSets.getChildAt(i));
             SetsAdapter.SetsViewHolder setsViewHolder = (SetsAdapter.SetsViewHolder) holder;
-            if(exercisePlan.getExercise().getExerciseType() == Exercise.ExerciseType.TEMPO){
+            if (exercisePlan.getExercise().getExerciseType() == Exercise.ExerciseType.TEMPO) {
                 exerciseLogs.add(new ExerciseLog(LocalDate.now(),
                         exercisePlan.getExercise().getName(),
-                        Double.parseDouble(setsViewHolder.etWeight.getText().toString()),-1,
+                        Double.parseDouble(setsViewHolder.etWeight.getText().toString()), -1,
                         Integer.parseInt(setsViewHolder.etRepsOrTime.getText().toString())));
-            }
-            else{
+            } else {
                 exerciseLogs.add(new ExerciseLog(LocalDate.now(),
                         exercisePlan.getExercise().getName(),
                         Double.parseDouble(setsViewHolder.etWeight.getText().toString()),
@@ -128,15 +122,15 @@ public class ExerciseFragment extends Fragment {
         return exerciseLogs;
     }
 
-    public class SetsAdapter extends RecyclerView.Adapter<ExerciseFragment.SetsAdapter.SetsViewHolder>{
+    public class SetsAdapter extends RecyclerView.Adapter<ExerciseFragment.SetsAdapter.SetsViewHolder> {
 
         private Context context;
         private List<Integer> sets;
 
-        public SetsAdapter(Context context, int noSets){
+        public SetsAdapter(Context context, int noSets) {
             this.context = context;
             List<Integer> sets = new ArrayList<Integer>();
-            for(int i = 1; i <= noSets; i++){
+            for (int i = 1; i <= noSets; i++) {
                 sets.add(i);
             }
             this.sets = sets;
@@ -156,13 +150,13 @@ public class ExerciseFragment extends Fragment {
             holder.tvSetNumber.setText(MessageFormat.format("{0}.", position + 1));
         }
 
-        public void addSet(){
+        public void addSet() {
             sets.add(sets.size() + 1);
             notifyItemInserted(sets.size());
         }
 
-        public void removeSet(){
-            if(sets.size() > 0){
+        public void removeSet() {
+            if (sets.size() > 0) {
                 sets.remove(sets.size() - 1);
                 notifyItemRemoved(sets.size());
             }
@@ -173,7 +167,7 @@ public class ExerciseFragment extends Fragment {
             return sets.size();
         }
 
-        public class SetsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        public class SetsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
             private EditText etWeight;
             private EditText etRepsOrTime;
@@ -187,7 +181,8 @@ public class ExerciseFragment extends Fragment {
             }
 
             @Override
-            public void onClick(View view) { }
+            public void onClick(View view) {
+            }
         }
     }
 }

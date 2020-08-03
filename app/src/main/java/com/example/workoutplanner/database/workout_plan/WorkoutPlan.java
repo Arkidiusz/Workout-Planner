@@ -1,4 +1,4 @@
-package com.example.workoutplanner.database.WorkoutPlan;
+package com.example.workoutplanner.database.workout_plan;
 
 import android.util.Log;
 
@@ -43,7 +43,8 @@ public class WorkoutPlan implements Serializable {
 
     @TypeConverter
     public static ArrayList<ExercisePlan> stringToExercisePlans(String value) {
-        Type exercisePlansType = new TypeToken<ArrayList<ExercisePlan>>() {}.getType();
+        Type exercisePlansType = new TypeToken<ArrayList<ExercisePlan>>() {
+        }.getType();
         RuntimeTypeAdapterFactory<ExercisePlan> adapter =
                 RuntimeTypeAdapterFactory.of(ExercisePlan.class, "type")
                         .registerSubtype(ExercisePlan.TempoExercisePlan.class,

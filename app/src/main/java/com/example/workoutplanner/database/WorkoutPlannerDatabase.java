@@ -9,12 +9,12 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.example.workoutplanner.database.ExerciseLog.ExerciseLog;
-import com.example.workoutplanner.database.ExerciseLog.ExerciseLogDao;
-import com.example.workoutplanner.database.WorkoutPlan.WorkoutPlan;
-import com.example.workoutplanner.database.WorkoutPlan.WorkoutPlanDao;
-import com.example.workoutplanner.database.Exercise.Exercise;
-import com.example.workoutplanner.database.Exercise.ExerciseDao;
+import com.example.workoutplanner.database.exercise.Exercise;
+import com.example.workoutplanner.database.exercise.ExerciseDao;
+import com.example.workoutplanner.database.exercise_log.ExerciseLog;
+import com.example.workoutplanner.database.exercise_log.ExerciseLogDao;
+import com.example.workoutplanner.database.workout_plan.WorkoutPlan;
+import com.example.workoutplanner.database.workout_plan.WorkoutPlanDao;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

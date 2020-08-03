@@ -1,4 +1,4 @@
-package com.example.workoutplanner.activities.Main;
+package com.example.workoutplanner.activities.main;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,11 +21,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.workoutplanner.R;
-import com.example.workoutplanner.activities.Logs.LogsActivity;
-import com.example.workoutplanner.activities.Plan.PlanActivity;
-import com.example.workoutplanner.activities.WorkoutSession.WorkoutSessionActivity;
+import com.example.workoutplanner.activities.logs.LogsActivity;
+import com.example.workoutplanner.activities.plan.PlanActivity;
+import com.example.workoutplanner.activities.workout_session.WorkoutSessionActivity;
 import com.example.workoutplanner.database.ExercisePlan;
-import com.example.workoutplanner.database.WorkoutPlan.WorkoutPlan;
+import com.example.workoutplanner.database.workout_plan.WorkoutPlan;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
@@ -167,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, WorkoutSessionActivity.class);
                 intent.putExtra("workoutPlan", (Serializable) workoutPlans.get(getAdapterPosition()));
                 startActivity(intent);

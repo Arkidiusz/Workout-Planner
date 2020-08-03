@@ -1,4 +1,4 @@
-package com.example.workoutplanner.database.Exercise;
+package com.example.workoutplanner.database.exercise;
 
 import android.app.Application;
 

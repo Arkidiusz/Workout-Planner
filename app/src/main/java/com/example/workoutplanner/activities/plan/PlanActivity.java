@@ -1,4 +1,4 @@
-package com.example.workoutplanner.activities.Plan;
+package com.example.workoutplanner.activities.plan;
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,9 +21,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.workoutplanner.R;
-import com.example.workoutplanner.activities.AddExercise.AddExerciseActivity;
+import com.example.workoutplanner.activities.add_exercise.AddExerciseActivity;
 import com.example.workoutplanner.database.ExercisePlan;
-import com.example.workoutplanner.database.WorkoutPlan.WorkoutPlan;
+import com.example.workoutplanner.database.workout_plan.WorkoutPlan;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -42,7 +42,6 @@ public class PlanActivity extends AppCompatActivity {
         setContentView(R.layout.activity_plan);
 
         etWorkoutName = findViewById(R.id.et_workout_name);
-
 
 
         // Abandon creation of new workout
@@ -86,10 +85,9 @@ public class PlanActivity extends AppCompatActivity {
                 int fromPosition = viewHolder.getAdapterPosition();
                 int toPosition = target.getAdapterPosition();
                 Collections.swap(exercisePlans, fromPosition, toPosition);
-                if(recyclerView.getAdapter() == null){
+                if (recyclerView.getAdapter() == null) {
                     throw new NullPointerException("Unexpected null adapter");
-                }
-                else{
+                } else {
                     recyclerView.getAdapter().notifyItemMoved(fromPosition, toPosition);
                 }
                 return false;
@@ -110,10 +108,10 @@ public class PlanActivity extends AppCompatActivity {
                 String workoutName = etWorkoutName.getText().toString();
                 if (!workoutName.isEmpty()) {
 
-                    for(int i = 0; i < rvExercises.getChildCount(); i++){
+                    for (int i = 0; i < rvExercises.getChildCount(); i++) {
                         RecyclerView.ViewHolder holder =
                                 rvExercises.getChildViewHolder(rvExercises.getChildAt(i));
-                        if(holder instanceof ExercisesAdapter.TempoViewHolder){
+                        if (holder instanceof ExercisesAdapter.TempoViewHolder) {
                             ExercisesAdapter.TempoViewHolder tempoViewHolder =
                                     (ExercisesAdapter.TempoViewHolder) holder;
                             ExercisePlan.TempoExercisePlan exercisePlan =
@@ -125,8 +123,7 @@ public class PlanActivity extends AppCompatActivity {
                             exercisePlan.parseAndSetTempo(tempoViewHolder
                                     .etTempo.getText().toString());
 
-                        }
-                        else if(holder instanceof ExercisesAdapter.IsometricViewHolder){
+                        } else if (holder instanceof ExercisesAdapter.IsometricViewHolder) {
                             ExercisesAdapter.IsometricViewHolder isometricViewHolder =
                                     (ExercisesAdapter.IsometricViewHolder) holder;
                             ExercisePlan.IsometricExercisePlan exercisePlan =
@@ -136,8 +133,8 @@ public class PlanActivity extends AppCompatActivity {
                             exercisePlan.setTime(Integer.parseInt(isometricViewHolder.etTime.getText().toString()));
                         }
                     }
-                        WorkoutPlan workoutPlan = new WorkoutPlan(etWorkoutName.getText().toString(),
-                                exercisePlans);
+                    WorkoutPlan workoutPlan = new WorkoutPlan(etWorkoutName.getText().toString(),
+                            exercisePlans);
                     Intent resultIntent = new Intent();
                     resultIntent.putExtra("workoutPlan", workoutPlan);
                     setResult(AppCompatActivity.RESULT_OK, resultIntent);
@@ -200,7 +197,7 @@ public class PlanActivity extends AppCompatActivity {
                     View view = inflater.inflate(R.layout.item_isometric_exercise, parent, false);
                     return new IsometricViewHolder(view);
                 }
-                default:{
+                default: {
                     throw new IllegalStateException("Unexpected viewType " + viewType);
                 }
             }
@@ -231,7 +228,7 @@ public class PlanActivity extends AppCompatActivity {
                     isometric_holder.tvExerciseName.setText(exercise.getExercise().getName());
                     isometric_holder.etNoSets.setText(String.format(Locale.getDefault(), "%d",
                             exercise.getNoSets()));
-                    isometric_holder.etTime.setText(String.format(Locale.getDefault(),"%d",
+                    isometric_holder.etTime.setText(String.format(Locale.getDefault(), "%d",
                             exercise.getTime()));
                     break;
                 }

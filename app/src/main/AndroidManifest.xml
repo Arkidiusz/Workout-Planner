@@ -10,13 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activities.chart.ChartActivity"></activity>
-        <activity android:name=".activities.Logs.LogsActivity" />
-        <activity android:name=".activities.WorkoutSession.WorkoutSessionActivity" />
-        <activity android:name=".activities.AddExercise.AddExerciseActivity" />
+        <activity android:name=".activities.logs.LogsActivity" />
+        <activity android:name=".activities.workout_session.WorkoutSessionActivity" />
+        <activity android:name=".activities.add_exercise.AddExerciseActivity" />
         <activity
-            android:name=".activities.Plan.PlanActivity"
+            android:name=".activities.plan.PlanActivity"
             android:label="@string/plan_title" />
-        <activity android:name=".activities.Main.MainActivity">
+        <activity android:name=".activities.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

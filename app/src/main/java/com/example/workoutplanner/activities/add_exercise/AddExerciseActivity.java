@@ -1,4 +1,4 @@
-package com.example.workoutplanner.activities.AddExercise;
+package com.example.workoutplanner.activities.add_exercise;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +14,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.workoutplanner.R;
-import com.example.workoutplanner.database.Exercise.Exercise;
+import com.example.workoutplanner.database.exercise.Exercise;
 import com.example.workoutplanner.database.ExercisePlan;
 
 import java.util.ArrayList;
@@ -71,13 +71,13 @@ public class AddExerciseActivity extends AppCompatActivity {
                 Intent resultIntent = new Intent();
                 Exercise exercise = (Exercise) spnExercises.getSelectedItem();
                 ExercisePlan exercisePlan;
-                switch(exercise.getExerciseType()){
-                    case ISOMETRIC:{
+                switch (exercise.getExerciseType()) {
+                    case ISOMETRIC: {
                         exercisePlan = new ExercisePlan.IsometricExercisePlan(exercise,
                                 DEFAULT_SETS, DEFAULT_TIME);
                         break;
                     }
-                    case TEMPO:{
+                    case TEMPO: {
                         exercisePlan = new ExercisePlan
                                 .TempoExercisePlan((Exercise) spnExercises.getSelectedItem(),
                                 DEFAULT_SETS, DEFAULT_REPS, DEFAULT_ECCENTRIC,
@@ -85,7 +85,8 @@ public class AddExerciseActivity extends AppCompatActivity {
                                 DEFAULT_CONCENTRIC_PAUSE);
                         break;
                     }
-                    default: throw new IllegalStateException("Unexpected exerciseType enum.");
+                    default:
+                        throw new IllegalStateException("Unexpected exerciseType enum.");
                 }
 
                 resultIntent.putExtra("exercisePlan", exercisePlan);

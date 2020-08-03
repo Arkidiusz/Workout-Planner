@@ -1,6 +1,6 @@
 package com.example.workoutplanner.database;
 
-import com.example.workoutplanner.database.Exercise.Exercise;
+import com.example.workoutplanner.database.exercise.Exercise;
 
 import java.io.Serializable;
 
@@ -91,10 +91,9 @@ public class ExercisePlan implements Serializable {
         }
 
         /**
-         *
          * @param tempo: 4 digit string
          */
-        public void parseAndSetTempo(String tempo){
+        public void parseAndSetTempo(String tempo) {
             char[] chars = tempo.toCharArray();
             setEccentric(Character.getNumericValue(chars[0]));
             setEccentricPause(Character.getNumericValue(chars[1]));
@@ -102,7 +101,7 @@ public class ExercisePlan implements Serializable {
             setConcentricPause(Character.getNumericValue(chars[3]));
         }
 
-        public String getTempo(){
+        public String getTempo() {
             return String.valueOf(getEccentric()) + getEccentricPause() +
                     getConcentric() + getConcentricPause();
         }

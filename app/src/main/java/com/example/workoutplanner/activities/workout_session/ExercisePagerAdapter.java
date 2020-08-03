@@ -1,15 +1,13 @@
-package com.example.workoutplanner.activities.WorkoutSession;
+package com.example.workoutplanner.activities.workout_session;
 
 import android.util.SparseArray;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.workoutplanner.database.Exercise.Exercise;
-import com.example.workoutplanner.database.WorkoutPlan.WorkoutPlan;
+import com.example.workoutplanner.database.workout_plan.WorkoutPlan;
 
 public class ExercisePagerAdapter extends FragmentStateAdapter {
     private SparseArray<ExerciseFragment> registeredFragments = new SparseArray<ExerciseFragment>();
@@ -35,7 +33,7 @@ public class ExercisePagerAdapter extends FragmentStateAdapter {
         return workoutPlan.getExercisePlans().size();
     }
 
-    public SparseArray<ExerciseFragment> getRegisteredFragments(){
+    public SparseArray<ExerciseFragment> getRegisteredFragments() {
         return registeredFragments;
     }
 }

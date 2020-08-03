@@ -1,11 +1,4 @@
-package com.example.workoutplanner.activities.Logs;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+package com.example.workoutplanner.activities.logs;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,14 +12,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.workoutplanner.R;
 import com.example.workoutplanner.activities.chart.ChartActivity;
-import com.example.workoutplanner.database.Exercise.Exercise;
-import com.example.workoutplanner.database.ExerciseLog.ExerciseLog;
-import com.example.workoutplanner.database.ExerciseLog.ExerciseLogDao;
-import com.example.workoutplanner.database.WorkoutPlan.WorkoutPlan;
+import com.example.workoutplanner.database.exercise_log.ExerciseLog;
+import com.example.workoutplanner.database.exercise_log.ExerciseLogDao;
 import com.example.workoutplanner.database.WorkoutPlannerDatabase;
 
 import org.threeten.bp.LocalDate;
@@ -43,6 +38,17 @@ public class LogsActivity extends AppCompatActivity {
     private List<LocalDate> dates;
     private Spinner spinner;
 
+    /**
+     * Use Epley formula to estimate one-repetition maximum
+     *
+     * @param weight - weight lifted
+     * @param reps   - number of times lifted
+     * @return an estimate of 1RM
+     */
+    public static double estimate1RM(double weight, int reps) {
+        return weight * (1 + (double) reps / 30);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,8 +62,8 @@ public class LogsActivity extends AppCompatActivity {
                 exercises = exerciseLogDao.getAllExerciseNames();
             }
         });
-        threadExerciseNames .start();
-        while(exercises == null){
+        threadExerciseNames.start();
+        while (exercises == null) {
             try {
                 //TODO let user know that he needs to wait, i.e. loading screen
                 Thread.sleep(100);
@@ -83,7 +89,7 @@ public class LogsActivity extends AppCompatActivity {
             }
         });
         threadExerciseLogs.start();
-        while(exerciseLogs == null || dates == null){
+        while (exerciseLogs == null || dates == null) {
             try {
                 Log.i("thread", "sleep");
                 //TODO let user know that he needs to wait, i.e. loading screen
@@ -113,7 +119,7 @@ public class LogsActivity extends AppCompatActivity {
                     }
                 });
                 threadExerciseLogs.start();
-                while(exerciseLogs == null || dates == null){
+                while (exerciseLogs == null || dates == null) {
                     try {
                         Log.i("thread", "sleep");
                         //TODO let user know that he needs to wait, i.e. loading screen
@@ -128,7 +134,8 @@ public class LogsActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) { }
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
         });
 
         Button btnChart = findViewById(R.id.btn_chart);
@@ -142,23 +149,13 @@ public class LogsActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * Use Epley formula to estimate one-repetition maximum
-     * @param weight - weight lifted
-     * @param reps - number of times lifted
-     * @return an estimate of 1RM
-     */
-    public static double estimate1RM(double weight, int reps){
-        return weight * (1 + (double) reps / 30);
-    }
-
-    private static class ExerciseLogsAdapter extends RecyclerView.Adapter<ExerciseLogsAdapter.ExerciseLogsViewHolder>  {
+    private static class ExerciseLogsAdapter extends RecyclerView.Adapter<ExerciseLogsAdapter.ExerciseLogsViewHolder> {
 
         private Context context;
         private List<LocalDate> dates;
         private List<ExerciseLog> exerciseLogs;
 
-        public ExerciseLogsAdapter(Context context, List<LocalDate> dates, List<ExerciseLog> exerciseLogs){
+        public ExerciseLogsAdapter(Context context, List<LocalDate> dates, List<ExerciseLog> exerciseLogs) {
             this.context = context;
             this.dates = dates;
             this.exerciseLogs = exerciseLogs;
@@ -174,41 +171,39 @@ public class LogsActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull ExerciseLogsAdapter.ExerciseLogsViewHolder holder, int position) {
-            if(position < dates.size()){
+            if (position < dates.size()) {
                 LocalDate date = dates.get(position);
                 holder.tvDate.setText(date.toString());
                 ArrayList<ExerciseLog> exerciseLogs = new ArrayList<>();
 
-                for(ExerciseLog exerciseLog : this.exerciseLogs){
-                    if(exerciseLog.getDate().isEqual(date)){
+                for (ExerciseLog exerciseLog : this.exerciseLogs) {
+                    if (exerciseLog.getDate().isEqual(date)) {
                         exerciseLogs.add(exerciseLog);
                     }
                 }
                 String exerciseSets = "";
                 double current1RM = 0;
                 StringBuilder stringBuilder = new StringBuilder();
-                for(int i = 0; i < exerciseLogs.size(); i++){
+                for (int i = 0; i < exerciseLogs.size(); i++) {
                     ExerciseLog exerciseLog = exerciseLogs.get(i);
                     stringBuilder.append("Set ").append(i + 1).append(": ").append(exerciseLog.getWeight()).append("kg x ");
-                    if(exerciseLog.getReps() == -1){
+                    if (exerciseLog.getReps() == -1) {
                         stringBuilder.append(exerciseLog.getTime()).append("s\n");
-                    }
-                    else{
+                    } else {
                         stringBuilder.append(exerciseLog.getReps()).append("\n");
                         // Additionally, estimate 1RM
                         double _1RM = LogsActivity.estimate1RM(exerciseLog.getWeight(),
                                 exerciseLog.getReps());
-                        if(_1RM > current1RM){
+                        if (_1RM > current1RM) {
                             current1RM = _1RM;
                         }
                     }
                 }
                 holder.tvSets.setText(stringBuilder.toString());
-                if(current1RM > 0) {
+                if (current1RM > 0) {
                     holder.tv1RM.setText(MessageFormat.format("1RM: {0}kg", String.format("%.2f",
                             current1RM)));
-                }
-                else{
+                } else {
                     holder.tv1RM.setText("");
                 }
             }
@@ -225,7 +220,7 @@ public class LogsActivity extends AppCompatActivity {
             notifyDataSetChanged();
         }
 
-        public static class ExerciseLogsViewHolder extends RecyclerView.ViewHolder{
+        public static class ExerciseLogsViewHolder extends RecyclerView.ViewHolder {
             private TextView tvDate;
             private TextView tvSets;
             private TextView tv1RM;
