@@ -15,7 +15,9 @@
         <activity
             android:name=".activities.logs.LogsActivity"
             android:label="Exercise Logs"/>
-        <activity android:name=".activities.workout_session.WorkoutSessionActivity" />
+        <activity
+            android:name=".activities.workout_session.WorkoutSessionActivity"
+            android:label="Workout Session"/>
         <activity
             android:name=".activities.add_exercise.AddExerciseActivity"
             android:label="Add Exercise to Workout Plan"/>

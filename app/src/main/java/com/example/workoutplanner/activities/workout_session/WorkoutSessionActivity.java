@@ -57,7 +57,6 @@ public class WorkoutSessionActivity extends AppCompatActivity {
                     ExerciseFragment exerciseFragment = exerciseFragments.get(key);
                     ArrayList<ExerciseLog> exerciseLogs = exerciseFragment.getExerciseLogs();
                     for (final ExerciseLog exerciseLog : exerciseLogs) {
-                        //TODO insert all exercises at once instead
                         Thread thread = new Thread(new Runnable() {
                             @Override
                             public void run() {

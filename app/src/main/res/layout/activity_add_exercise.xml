@@ -23,7 +23,7 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:cardBackgroundColor="@color/design_default_color_secondary"
+                    app:cardBackgroundColor="@color/primaryLightColor"
                     app:cardCornerRadius="32dp"
                     app:cardUseCompatPadding="true">
 
@@ -37,7 +37,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="32dp"
-                            android:backgroundTint="@color/cardview_light_background"
+                            android:backgroundTint="@android:color/white"
                             android:text="@string/all_add_exercise"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -59,6 +59,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:text="@string/add_existing_exercise_label"
+                            android:textColor="@color/primaryTextColor"
                             android:textSize="24sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -81,7 +82,7 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:cardBackgroundColor="@color/design_default_color_secondary"
+                    app:cardBackgroundColor="@color/primaryLightColor"
                     app:cardCornerRadius="32dp"
                     app:cardUseCompatPadding="true">
 
@@ -111,6 +112,7 @@
                             android:importantForAutofill="no"
                             android:inputType="textPersonName"
                             android:textAlignment="center"
+                            android:textColor="@color/primaryTextColor"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/tv_new_exercise_label" />
@@ -130,6 +132,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:text="@string/add_exercise_type_label"
+                            android:textColor="@color/primaryTextColor"
                             app:layout_constraintStart_toStartOf="@+id/et_exercise_name"
                             app:layout_constraintTop_toBottomOf="@+id/et_exercise_name" />
 
@@ -138,6 +141,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/add_new_exercise_label"
+                            android:textColor="@color/primaryTextColor"
                             android:textSize="24sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"

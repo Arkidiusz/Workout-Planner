@@ -65,10 +65,9 @@ public class LogsActivity extends AppCompatActivity {
         threadExerciseNames.start();
         while (exercises == null) {
             try {
-                //TODO let user know that he needs to wait, i.e. loading screen
                 Thread.sleep(100);
             } catch (InterruptedException e) {
-                Log.e("Exception", Arrays.toString(e.getStackTrace())); //TODO handle appropriately
+                finish();
             }
         }
 
@@ -91,11 +90,9 @@ public class LogsActivity extends AppCompatActivity {
         threadExerciseLogs.start();
         while (exerciseLogs == null || dates == null) {
             try {
-                Log.i("thread", "sleep");
-                //TODO let user know that he needs to wait, i.e. loading screen
                 Thread.sleep(100);
             } catch (InterruptedException e) {
-                Log.e("Exception", Arrays.toString(e.getStackTrace())); //TODO handle appropriately
+                finish();
             }
         }
         final RecyclerView recyclerView = findViewById(R.id.rv_exercise_logs);
@@ -122,10 +119,9 @@ public class LogsActivity extends AppCompatActivity {
                 while (exerciseLogs == null || dates == null) {
                     try {
                         Log.i("thread", "sleep");
-                        //TODO let user know that he needs to wait, i.e. loading screen
                         Thread.sleep(100);
                     } catch (InterruptedException e) {
-                        Log.e("Exception", Arrays.toString(e.getStackTrace())); //TODO handle appropriately
+                        finish();
                     }
                 }
                 exerciseLogsAdapter.setExerciseLogs(dates, exerciseLogs);

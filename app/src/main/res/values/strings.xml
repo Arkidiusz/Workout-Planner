@@ -32,7 +32,6 @@
         <item>Tempo</item>
         <item>Isometric</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
     <string-array name="sample_exercises">
         <item>Deadlift</item>
         <item>Plank</item>

@@ -82,7 +82,7 @@ public class ExerciseFragment extends Fragment {
                 setsAdapter.addSet();
             }
         });
-        fabRemoveSet = view.findViewById(R.id.fab_delete_set);//TODO rename for consistency
+        fabRemoveSet = view.findViewById(R.id.fab_delete_set);
         fabRemoveSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

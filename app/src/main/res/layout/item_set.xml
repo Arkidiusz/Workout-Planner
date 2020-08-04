@@ -22,6 +22,7 @@
                 android:ems="10"
                 android:inputType="number"
                 android:textAlignment="center"
+                android:textColor="@color/primaryTextColor"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,6 +34,7 @@
                 android:ems="10"
                 android:inputType="number"
                 android:textAlignment="center"
+                android:textColor="@color/primaryTextColor"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,6 +45,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:text="1."
+                android:textColor="@color/primaryTextColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/et_weight"
                 app:layout_constraintStart_toStartOf="parent"
@@ -53,6 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="X"
+                android:textColor="@color/primaryTextColor"
                 app:layout_constraintBottom_toBottomOf="@+id/et_weight"
                 app:layout_constraintEnd_toStartOf="@+id/et_reps_or_time"
                 app:layout_constraintStart_toEndOf="@+id/et_weight"
