@@ -68,6 +68,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, PlanActivity.class);
+                ArrayList<String> exercisePlanNames = new ArrayList<>();
+                for(WorkoutPlan workoutPlan : workoutPlans){
+                    exercisePlanNames.add(workoutPlan.getName());
+                }
+                intent.putExtra("workoutNames", (Serializable) exercisePlanNames);
+                startActivity(intent);
                 startActivityForResult(intent, WORKOUT_REQUEST);
             }
         });
@@ -169,7 +175,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, WorkoutSessionActivity.class);
                 intent.putExtra("workoutPlan", (Serializable) workoutPlans.get(getAdapterPosition()));
-                startActivity(intent);
             }
         }
     }

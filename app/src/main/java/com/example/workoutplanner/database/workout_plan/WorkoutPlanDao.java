@@ -15,6 +15,9 @@ public interface WorkoutPlanDao {
     @Query("SELECT * from WorkoutPlan ORDER BY name ASC")
     LiveData<List<WorkoutPlan>> getAllWorkoutPlans();
 
+    @Query("SELECT name from WorkoutPlan ORDER BY name ASC")
+    LiveData<List<String>> getAllWorkoutPlanNames();
+
     @Query("DELETE FROM WorkoutPlan")
     void deleteAll();
 }

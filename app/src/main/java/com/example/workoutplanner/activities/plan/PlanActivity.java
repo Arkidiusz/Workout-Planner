@@ -97,8 +97,13 @@ public class PlanActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String workoutName = etWorkoutName.getText().toString();
-                if (!workoutName.isEmpty()) {
-
+                if (workoutName.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Please enter the name.",
+                            Toast.LENGTH_SHORT).show();
+                } else if(!workoutNameFree(workoutName)) {
+                    Toast.makeText(getApplicationContext(), "This workout name is already used.",
+                            Toast.LENGTH_SHORT).show();
+                } else {
                     for (int i = 0; i < rvExercises.getChildCount(); i++) {
                         RecyclerView.ViewHolder holder =
                                 rvExercises.getChildViewHolder(rvExercises.getChildAt(i));
@@ -132,10 +137,6 @@ public class PlanActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "WorkoutPlan " + workoutName
                             + " saved.", Toast.LENGTH_SHORT).show();
                     finish();
-                }//@TODO Handle a case where a workout of same name exists
-                else {
-                    Toast.makeText(getApplicationContext(), "Please enter the name.",
-                            Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -152,6 +153,17 @@ public class PlanActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    private boolean workoutNameFree(String workoutName){
+        Intent intent = getIntent();
+        Log.i("XD", "called");
+        ArrayList<String> workoutNames = (ArrayList<String>) intent.getSerializableExtra("workoutNames");
+        for(String name : workoutNames){
+            Log.i("XD", name);
+            if(workoutName.equals(name)) return true;
+        }
+        return false;
     }
 
     public static class ExercisesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
