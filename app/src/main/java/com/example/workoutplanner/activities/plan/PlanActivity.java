@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -195,12 +196,12 @@ public class PlanActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+
             switch (holder.getItemViewType()) {
                 case 1: {
-                    ExercisePlan.TempoExercisePlan exercise
+                    final ExercisePlan.TempoExercisePlan exercise
                             = (ExercisePlan.TempoExercisePlan) exercisePlans.get(position);
                     TempoViewHolder tempo_holder = (TempoViewHolder) holder;
-                    Log.i("XD", exercise.getExercise().toString());
                     tempo_holder.tvExerciseName.setText(exercise.getExercise().getName());
                     tempo_holder.etNoSets.setText(String.format(Locale.getDefault(), "%d",
                             exercise.getNoSets()));
@@ -208,10 +209,18 @@ public class PlanActivity extends AppCompatActivity {
                             exercise.getNoReps()));
                     String sb = exercise.getTempo();
                     tempo_holder.etTempo.setText(sb);
+                    tempo_holder.btnRemove.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            int position = exercisePlans.indexOf(exercise);
+                            exercisePlans.remove(exercise);
+                            notifyItemRemoved(position);
+                        }
+                    });
                     break;
                 }
                 case 2: {
-                    ExercisePlan.IsometricExercisePlan exercise
+                    final ExercisePlan.IsometricExercisePlan exercise
                             = (ExercisePlan.IsometricExercisePlan) exercisePlans.get(position);
                     IsometricViewHolder isometric_holder = (IsometricViewHolder) holder;
                     Log.i("XD", exercise.getExercise().toString());
@@ -220,6 +229,14 @@ public class PlanActivity extends AppCompatActivity {
                             exercise.getNoSets()));
                     isometric_holder.etTime.setText(String.format(Locale.getDefault(), "%d",
                             exercise.getTime()));
+                    isometric_holder.btnRemove.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            int position = exercisePlans.indexOf(exercise);
+                            exercisePlans.remove(exercise);
+                            notifyItemRemoved(position);
+                        }
+                    });
                     break;
                 }
             }
@@ -236,6 +253,7 @@ public class PlanActivity extends AppCompatActivity {
             private EditText etNoSets;
             private EditText etNoReps;
             private EditText etTempo;
+            private ImageButton btnRemove;
 
             public TempoViewHolder(@NonNull View itemView) {
                 super(itemView);
@@ -243,6 +261,7 @@ public class PlanActivity extends AppCompatActivity {
                 etNoSets = itemView.findViewById(R.id.et_no_sets);
                 etNoReps = itemView.findViewById(R.id.et_no_reps);
                 etTempo = itemView.findViewById(R.id.et_tempo);
+                btnRemove = itemView.findViewById(R.id.btn_remove_exercise);
             }
         }
 
@@ -251,12 +270,14 @@ public class PlanActivity extends AppCompatActivity {
             private TextView tvExerciseName;
             private EditText etNoSets;
             private EditText etTime;
+            private ImageButton btnRemove;
 
             public IsometricViewHolder(@NonNull View itemView) {
                 super(itemView);
                 tvExerciseName = itemView.findViewById(R.id.tv_iso_exercise_name);
                 etNoSets = itemView.findViewById(R.id.et_iso_no_sets);
                 etTime = itemView.findViewById(R.id.et_iso_time);
+                btnRemove = itemView.findViewById(R.id.btn_remove_iso_exercise);
             }
         }
     }

@@ -27,6 +27,7 @@
                 android:inputType="number"
                 android:text="5"
                 android:textAlignment="center"
+                android:textColor="@color/primaryTextColor"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_iso_sets_label" />
 
@@ -40,6 +41,7 @@
                 android:inputType="number"
                 android:text="60"
                 android:textAlignment="center"
+                android:textColor="@color/primaryTextColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/btn_remove_iso_exercise"
                 app:layout_constraintStart_toEndOf="@+id/et_iso_no_sets" />
@@ -73,6 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="@string/isometric_time_label"
+                android:textColor="@color/primaryTextColor"
                 app:layout_constraintBottom_toTopOf="@+id/et_iso_time"
                 app:layout_constraintEnd_toEndOf="@+id/et_iso_time"
                 app:layout_constraintStart_toStartOf="@+id/et_iso_time"
@@ -84,6 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="@string/all_sets_label"
+                android:textColor="@color/primaryTextColor"
                 app:layout_constraintEnd_toEndOf="@+id/et_iso_no_sets"
                 app:layout_constraintStart_toStartOf="@+id/et_iso_no_sets"
                 app:layout_constraintTop_toBottomOf="@+id/tv_iso_exercise_name" />
