@@ -159,11 +159,12 @@ public class PlanActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Log.i("XD", "called");
         ArrayList<String> workoutNames = (ArrayList<String>) intent.getSerializableExtra("workoutNames");
+        if(workoutNames == null || workoutNames.isEmpty()) return true;
         for(String name : workoutNames){
             Log.i("XD", name);
-            if(workoutName.equals(name)) return true;
+            if(workoutName.equals(name)) return false;
         }
-        return false;
+        return true;
     }
 
     public static class ExercisesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
