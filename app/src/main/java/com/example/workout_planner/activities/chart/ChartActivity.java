@@ -8,11 +8,12 @@ import androidx.core.content.ContextCompat;
 
 import com.example.workout_planner.R;
 import com.example.workout_planner.activities.logs.LogsActivity;
+import com.example.workout_planner.database.WorkoutPlannerDatabase;
 import com.example.workout_planner.database.exercise_log.ExerciseLog;
 import com.example.workout_planner.database.exercise_log.ExerciseLogDao;
-import com.example.workout_planner.database.WorkoutPlannerDatabase;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -25,6 +26,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Chart displays 1RM (1 rep max) over time for an exercise passed in an intent
+ */
 public class ChartActivity extends AppCompatActivity {
     private List<LocalDate> dates;
     private List<ExerciseLog> exerciseLogs;
@@ -37,6 +41,7 @@ public class ChartActivity extends AppCompatActivity {
         Intent intent = getIntent();
         final String exerciseName = intent.getStringExtra("exerciseName");
 
+        // Fetch exerciseLogs and dates corresponding to given exerciseName
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -54,8 +59,9 @@ public class ChartActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        Collections.reverse(dates);
+        Collections.reverse(dates);// results in ascending order
 
+        // Compute data points for LineChart
         ArrayList<Entry> dataValues = new ArrayList<>();
         for (LocalDate date : dates) {
             double current1RM = 0;
@@ -70,48 +76,54 @@ public class ChartActivity extends AppCompatActivity {
         }
 
         LineChart lineChart = findViewById(R.id.line_chart);
-        LineDataSet lindDataSet = new LineDataSet(dataValues, "Bench Press 1RM\"");
-        lindDataSet.setLineWidth(3f);
-        lindDataSet.setCircleRadius(6f);
-        lindDataSet.setCircleHoleRadius(3f);
-        lindDataSet.setCircleColor(ContextCompat.getColor(getApplicationContext(),
-                R.color.primaryColor));
+        LineDataSet lineDataSet = new LineDataSet(dataValues, "Bench Press 1RM\"");
 
-        lindDataSet.setColor(ContextCompat.getColor(getApplicationContext(), R.color.primaryColor));
+        // Chart aesthetics, formatting etc.
+        lineDataSet.setLineWidth(3f);
+        lineDataSet.setCircleRadius(6f);
+        lineDataSet.setCircleHoleRadius(3f);
+        lineDataSet.setCircleColor(ContextCompat.getColor(getApplicationContext(),
+                R.color.primaryColor));
+        lineDataSet.setColor(ContextCompat.getColor(getApplicationContext(), R.color.primaryColor));
+        lineDataSet.setValueTextSize(12f);
+
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-        dataSets.add(lindDataSet);
+        dataSets.add(lineDataSet);
         LineData data = new LineData(dataSets);
+
         lineChart.setScaleEnabled(true);
         lineChart.setData(data);
         lineChart.getXAxis().setValueFormatter(new DateFormatter());
         lineChart.animateXY(1000, 1000);
-        lindDataSet.setValueTextSize(12f);
         lineChart.getDescription().setEnabled(false);
+        lineChart.setExtraTopOffset(4f);
 
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setTextSize(12f);
         xAxis.setGranularity(1f);
         xAxis.setLabelCount(4);
-        lineChart.setExtraTopOffset(4f);
 
-        lineChart.getAxisLeft().setValueFormatter(new KgFormatter());
-        lineChart.getAxisLeft().setTextSize(12f);
-        lineChart.getAxisRight().setTextSize(12f);
-        lineChart.getAxisRight().setValueFormatter(new KgFormatter());
+        YAxis axisLeft = lineChart.getAxisLeft();
+        axisLeft.setValueFormatter(new KgFormatter());
+        axisLeft.setTextSize(12f);
+
+        YAxis axisRight = lineChart.getAxisRight();
+        axisRight.setTextSize(12f);
+        axisRight.setValueFormatter(new KgFormatter());
 
         lineChart.invalidate();
     }
 
+    // Converts floats to LocalDates
     public static class DateFormatter extends ValueFormatter {
-
         @Override
         public String getFormattedValue(float value) {
             return LocalDate.ofEpochDay((long) value).toString();
         }
     }
 
+    // Adds kg to weight values
     public static class KgFormatter extends ValueFormatter{
-
         @Override
         public String getFormattedValue(float value) {
             return value + "kg";

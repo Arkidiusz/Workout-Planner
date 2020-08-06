@@ -30,6 +30,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Locale;
 
+/**
+ * Activity for planning a workout session
+ */
 public class PlanActivity extends AppCompatActivity {
 
     public static final int EXERCISE_REQUEST = 2;
@@ -57,14 +60,12 @@ public class PlanActivity extends AppCompatActivity {
         // List of planned Exercises for a workout
         final RecyclerView rvExercises = findViewById(R.id.rv_exercises);
         exercisePlans = new ArrayList<>();//testing sample
-//        exercisePlans.add(new ExercisePlan.TempoExercisePlan("Bench Press", 5, 5, 4, 0, 1, 0));
-//        exercisePlans.add(new ExercisePlan.IsometricExercisePlan("Plank", 5, 60));
         mExercisesAdapter = new ExercisesAdapter(this, exercisePlans);
         rvExercises.setAdapter(mExercisesAdapter);
         rvExercises.setLayoutManager(new LinearLayoutManager(this));
         rvExercises.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL));
-        // Drag RV items to reorder
+        // Drag rv items to reorder
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
                 ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.START
                         | ItemTouchHelper.END, 0) {
@@ -85,9 +86,7 @@ public class PlanActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                // do nothing;
-            }
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) { }
         });
         itemTouchHelper.attachToRecyclerView(rvExercises);
 
@@ -100,7 +99,7 @@ public class PlanActivity extends AppCompatActivity {
                 if (workoutName.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Please enter the name.",
                             Toast.LENGTH_SHORT).show();
-                } else if(!workoutNameFree(workoutName)) {
+                } else if(!isWorkoutNameFree(workoutName)) {
                     Toast.makeText(getApplicationContext(), "This workout name is already used.",
                             Toast.LENGTH_SHORT).show();
                 } else {
@@ -155,7 +154,7 @@ public class PlanActivity extends AppCompatActivity {
         }
     }
 
-    private boolean workoutNameFree(String workoutName){
+    private boolean isWorkoutNameFree(String workoutName){
         Intent intent = getIntent();
         ArrayList<String> workoutNames = (ArrayList<String>) intent.getSerializableExtra("workoutNames");
         if(workoutNames == null || workoutNames.isEmpty()) return true;

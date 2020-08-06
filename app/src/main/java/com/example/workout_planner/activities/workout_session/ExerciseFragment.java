@@ -15,9 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.workout_planner.R;
+import com.example.workout_planner.database.ExercisePlan;
 import com.example.workout_planner.database.exercise.Exercise;
 import com.example.workout_planner.database.exercise_log.ExerciseLog;
-import com.example.workout_planner.database.ExercisePlan;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.threeten.bp.LocalDate;
@@ -26,6 +26,9 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Displays sets of ont of  exercises from a workoutSession
+ */
 public class ExerciseFragment extends Fragment {
 
     private ExercisePlan exercisePlan;
@@ -39,7 +42,6 @@ public class ExerciseFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -183,8 +185,7 @@ public class ExerciseFragment extends Fragment {
             }
 
             @Override
-            public void onClick(View view) {
-            }
+            public void onClick(View view) { }
         }
     }
 }

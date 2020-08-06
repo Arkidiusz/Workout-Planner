@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,9 +22,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.workout_planner.R;
 import com.example.workout_planner.activities.chart.ChartActivity;
+import com.example.workout_planner.database.WorkoutPlannerDatabase;
+import com.example.workout_planner.database.exercise.Exercise;
+import com.example.workout_planner.database.exercise.ExerciseDao;
 import com.example.workout_planner.database.exercise_log.ExerciseLog;
 import com.example.workout_planner.database.exercise_log.ExerciseLogDao;
-import com.example.workout_planner.database.WorkoutPlannerDatabase;
 
 import org.threeten.bp.LocalDate;
 
@@ -31,10 +34,14 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Activity for displaying logs of Exercises and generating charts
+ */
 public class LogsActivity extends AppCompatActivity {
 
     private List<ExerciseLog> exerciseLogs;
-    private List<String> exercises;
+    private List<String> exerciseNames;
+    private List<Exercise> exercises;
     private List<LocalDate> dates;
     private Spinner spinner;
 
@@ -54,16 +61,17 @@ public class LogsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logs);
 
+        // Fetch exercise names
         Thread threadExerciseNames = new Thread(new Runnable() {
             @Override
             public void run() {
                 WorkoutPlannerDatabase db = WorkoutPlannerDatabase.getDataBase(getApplication());
                 ExerciseLogDao exerciseLogDao = db.exerciseLogDao();
-                exercises = exerciseLogDao.getAllExerciseNames();
+                exerciseNames = exerciseLogDao.getAllExerciseNames();
             }
         });
         threadExerciseNames.start();
-        while (exercises == null) {
+        while (exerciseNames == null) {
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
@@ -71,9 +79,10 @@ public class LogsActivity extends AppCompatActivity {
             }
         }
 
+        // Spinner of all exerciseNames
         spinner = findViewById(R.id.spn_exercise_logs);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_dropdown_item, exercises);
+                android.R.layout.simple_spinner_dropdown_item, exerciseNames);
         spinner.setAdapter(adapter);
 
         final String selectedExercise = spinner.getSelectedItem().toString();
@@ -129,17 +138,53 @@ public class LogsActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
+            public void onNothingSelected(AdapterView<?> adapterView) { }
         });
 
+        // Generate a chart for selected exercise
         Button btnChart = findViewById(R.id.btn_chart);
         btnChart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LogsActivity.this, ChartActivity.class);
-                intent.putExtra("exerciseName", spinner.getSelectedItem().toString());
-                startActivity(intent);
+                Thread threadExerciseNames = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        WorkoutPlannerDatabase db = WorkoutPlannerDatabase.getDataBase(getApplication());
+                        ExerciseDao exerciseDao = db.exerciseDao();
+                        exercises = exerciseDao.getAllExercisesAsList();
+                    }
+                });
+                threadExerciseNames.start();
+                while (exercises == null) {
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        finish();
+                    }
+                }
+
+                // Check if exercise is tempo (only these can be displayed in a chart)
+                boolean isTempoExercise = false;
+                String exerciseName = spinner.getSelectedItem().toString();
+                for(Exercise exercise : exercises){
+                    if(exercise.getName().equals(exerciseName)){
+                        if(exercise.getExerciseType() == Exercise.ExerciseType.TEMPO){
+                            isTempoExercise = true;
+                            break;
+                        }
+                    }
+                }
+                if(isTempoExercise){
+                    Intent intent = new Intent(LogsActivity.this, ChartActivity.class);
+                    intent.putExtra("exerciseName", spinner.getSelectedItem().toString());
+                    startActivity(intent);
+                }
+                else{
+                    Toast.makeText(LogsActivity.this,
+                            "Only tempo exercises can be displayed as a " + "chart.",
+                            Toast.LENGTH_SHORT).show();
+                }
+                exercises = null;
             }
         });
     }

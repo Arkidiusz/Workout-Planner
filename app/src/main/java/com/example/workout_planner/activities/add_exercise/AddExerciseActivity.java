@@ -14,8 +14,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.workout_planner.R;
-import com.example.workout_planner.database.exercise.Exercise;
 import com.example.workout_planner.database.ExercisePlan;
+import com.example.workout_planner.database.exercise.Exercise;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +45,7 @@ public class AddExerciseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_exercise);
 
+        // EditText for naming new exercises
         etExerciseName = findViewById(R.id.et_exercise_name);
 
         // List of already existing exercises in the database
@@ -153,6 +154,7 @@ public class AddExerciseActivity extends AppCompatActivity {
     }
 
     // Check if given name is not already used by another Exercise
+    // (name uniquely identifies Exercise)
     private boolean isExerciseNameFree(String string) {
         List<Exercise> exercises = exerciseViewModel.getAllExercises().getValue();
         if (exercises == null || exercises.isEmpty()) {
