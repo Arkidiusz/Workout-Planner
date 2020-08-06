@@ -1,12 +1,10 @@
 <resources>
-    <string name="app_name">WorkoutPlanner</string>
     <string name="all_workout_name">Workout Name</string>
     <string name="all_add_exercise">Add Exercise to this Plan</string>
     <string name="all_sample_exercise">Bench Press</string>
     <string name="all_remove_exercise">Remove Exercise</string>
     <string name="all_sets_label">Sets:</string>
     <string name="all_reps_label">Reps:</string>
-    <string name="main_title">Your Workouts:</string>
     <string name="plan_title">Plan Workout</string>
     <string name="plan_save_workout">Save and finish Planning</string>
     <string name="tempo_label">Tempo:</string>
@@ -15,7 +13,6 @@
     <string name="add_exercise_name_hint">Exercise Name</string>
     <string name="add_existing_exercise_label">Choose an existing exercise</string>
     <string name="add_new_exercise_label">Create a new exercise</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="workout_session_button_text">Finish</string>
     <string name="all_weight">Weight (kg)</string>
     <string name="all_time">Time (s)</string>
@@ -24,16 +21,7 @@
     <string name="logs_chart">Chart</string>
     <string name="exercise_sample_set">Set 1: 30kg x 5\nSet 2: 30kg x 5</string>
     <string name="exercise_log_sample_date">31/07/2020</string>
-    <string-array name="sample_workouts">
-        <item>FBW 1</item>
-        <item>FBW 2</item>
-    </string-array>
-    <string-array name="exercise_types">
-        <item>Tempo</item>
-        <item>Isometric</item>
-    </string-array>
-    <string-array name="sample_exercises">
-        <item>Deadlift</item>
-        <item>Plank</item>
-    </string-array>
+    <string name="exercise_drag_label_description">You can drag this item</string>
+    <string name="workout_arrow_content_description">You can click on this item</string>
+    <string name="all_logs_label">Logs</string>
 </resources>

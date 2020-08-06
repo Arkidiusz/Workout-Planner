@@ -24,7 +24,9 @@
         android:id="@+id/btn_finish_session"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/workout_session_button_text" />
+        android:backgroundTint="@color/primaryDarkColor"
+        android:text="@string/workout_session_button_text"
+        android:textColor="@color/primaryTextColor" />
 
 
 </LinearLayout>

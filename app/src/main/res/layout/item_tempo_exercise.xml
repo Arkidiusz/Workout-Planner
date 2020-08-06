@@ -81,10 +81,10 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/drag_indicator" />
+                app:srcCompat="@drawable/drag_indicator"
+                android:contentDescription="@string/exercise_drag_label_description"/>
 
             <TextView
-                android:id="@+id/tv_tempo_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
