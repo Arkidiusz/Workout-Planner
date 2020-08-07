@@ -60,7 +60,7 @@ public class PlanActivity extends AppCompatActivity {
         // List of planned Exercises for a workout
         final RecyclerView rvExercises = findViewById(R.id.rv_exercises);
         exercisePlans = new ArrayList<>();//testing sample
-        mExercisesAdapter = new ExercisesAdapter(this, exercisePlans);
+        mExercisesAdapter = new ExercisesAdapter(this);
         rvExercises.setAdapter(mExercisesAdapter);
         rvExercises.setLayoutManager(new LinearLayoutManager(this));
         rvExercises.addItemDecoration(new DividerItemDecoration(this,
@@ -81,8 +81,8 @@ public class PlanActivity extends AppCompatActivity {
                     throw new NullPointerException("Unexpected null adapter");
                 } else {
                     recyclerView.getAdapter().notifyItemMoved(fromPosition, toPosition);
+                    return false;
                 }
-                return false;
             }
 
             @Override
@@ -90,7 +90,7 @@ public class PlanActivity extends AppCompatActivity {
         });
         itemTouchHelper.attachToRecyclerView(rvExercises);
 
-        // Button used to save created workout session
+        // Button used to save planned workout session
         Button btnSaveWorkout = findViewById(R.id.btn_save);
         btnSaveWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,10 +102,10 @@ public class PlanActivity extends AppCompatActivity {
                 } else if(!isWorkoutNameFree(workoutName)) {
                     Toast.makeText(getApplicationContext(), "This workout name is already used.",
                             Toast.LENGTH_SHORT).show();
-                } else {
+                } else if(isPlanDataProvided(rvExercises)) {
                     for (int i = 0; i < rvExercises.getChildCount(); i++) {
                         RecyclerView.ViewHolder holder =
-                                rvExercises.getChildViewHolder(rvExercises.getChildAt(i));
+                                rvExercises.findViewHolderForAdapterPosition(i);
                         if (holder instanceof ExercisesAdapter.TempoViewHolder) {
                             ExercisesAdapter.TempoViewHolder tempoViewHolder =
                                     (ExercisesAdapter.TempoViewHolder) holder;
@@ -121,6 +121,9 @@ public class PlanActivity extends AppCompatActivity {
                         } else if (holder instanceof ExercisesAdapter.IsometricViewHolder) {
                             ExercisesAdapter.IsometricViewHolder isometricViewHolder =
                                     (ExercisesAdapter.IsometricViewHolder) holder;
+//                            Log.i("holder", isometricViewHolder.toString());
+//                            Log.i("exercisePlan", exercisePlans.get(i).getExercise().toString());
+//                            Log.i("i", Integer.toString(i));
                             ExercisePlan.IsometricExercisePlan exercisePlan =
                                     (ExercisePlan.IsometricExercisePlan) exercisePlans.get(i);
                             exercisePlan.setNoSets(Integer.parseInt(isometricViewHolder
@@ -154,6 +157,60 @@ public class PlanActivity extends AppCompatActivity {
         }
     }
 
+    // Check if user has provided sufficient input to create a WorkoutPlan
+    private boolean isPlanDataProvided(RecyclerView rvExercises){
+        for (int i = 0; i < rvExercises.getChildCount(); i++) {
+            RecyclerView.ViewHolder holder =
+                    rvExercises.getChildViewHolder(rvExercises.getChildAt(i));
+            if (holder instanceof ExercisesAdapter.TempoViewHolder) {
+                ExercisesAdapter.TempoViewHolder tempoViewHolder =
+                        (ExercisesAdapter.TempoViewHolder) holder;
+                String noSets = tempoViewHolder.etNoSets.getText().toString();
+                String noReps = tempoViewHolder.etNoReps.getText().toString();
+                String tempo = tempoViewHolder.etTempo.getText().toString();
+                if(noSets.isEmpty() || noReps.isEmpty() || tempo.isEmpty()){
+                   Toast.makeText(PlanActivity.this, "Fill in all information.",
+                           Toast.LENGTH_SHORT).show();
+                   return false;
+                }
+                if(!noSets.matches("\\d+") || !noReps.matches("\\d+")
+                        || !isTempoOfCorrectFormat(tempo)){
+                    Toast.makeText(PlanActivity.this, "Incorrect data provided. Only use " +
+                                    "integers, and tempo must consist of 4 digits",
+                            Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+            } else if (holder instanceof ExercisesAdapter.IsometricViewHolder) {
+                ExercisesAdapter.IsometricViewHolder isometricViewHolder =
+                        (ExercisesAdapter.IsometricViewHolder) holder;
+                String noSets = isometricViewHolder.etNoSets.getText().toString();
+                String time = isometricViewHolder.etTime.getText().toString();
+                if(noSets.isEmpty() || time.isEmpty()){
+                    Toast.makeText(PlanActivity.this, "Fill in all information.",
+                            Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+                if(!noSets.matches("\\d+") || !time.matches("\\d+")){
+                    Toast.makeText(PlanActivity.this, "Incorrect data provided. Only use " +
+                                    "integers.",
+                            Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    // Check if string represents tempo (it is 4 digits long)
+    private boolean isTempoOfCorrectFormat(String tempo){
+        char[] tempoCharacters = tempo.toCharArray();
+        if(tempoCharacters.length != 4) return false;
+        for (char tempoCharacter : tempoCharacters) {
+            if (!Character.isDigit(tempoCharacter)) return false;
+        }
+        return true;
+    }
+
     private boolean isWorkoutNameFree(String workoutName){
         Intent intent = getIntent();
         ArrayList<String> workoutNames = (ArrayList<String>) intent.getSerializableExtra("workoutNames");
@@ -164,16 +221,14 @@ public class PlanActivity extends AppCompatActivity {
         return true;
     }
 
-    public static class ExercisesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    public class ExercisesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         private static final int TEMPO_EXERCISE = 1;
         private static final int ISOMETRIC_EXERCISE = 2;
         private final Context mContext;
-        private final ArrayList<ExercisePlan> exercisePlans;
 
-        public ExercisesAdapter(Context mContext, ArrayList<ExercisePlan> exercisePlans) {
+        public ExercisesAdapter(Context mContext) {
             this.mContext = mContext;
-            this.exercisePlans = exercisePlans;
         }
 
         @Override
@@ -203,6 +258,8 @@ public class PlanActivity extends AppCompatActivity {
                 }
             }
         }
+
+
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
@@ -257,7 +314,7 @@ public class PlanActivity extends AppCompatActivity {
             return exercisePlans.size();
         }
 
-        public static class TempoViewHolder extends RecyclerView.ViewHolder {
+        public class TempoViewHolder extends RecyclerView.ViewHolder {
 
             private TextView tvExerciseName;
             private EditText etNoSets;
@@ -275,7 +332,7 @@ public class PlanActivity extends AppCompatActivity {
             }
         }
 
-        public static class IsometricViewHolder extends RecyclerView.ViewHolder {
+        public class IsometricViewHolder extends RecyclerView.ViewHolder {
 
             private TextView tvExerciseName;
             private EditText etNoSets;
