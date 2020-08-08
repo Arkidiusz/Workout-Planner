@@ -11,10 +11,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.workout_planner.R;
+import com.example.workout_planner.database.WorkoutPlannerDatabase;
 import com.example.workout_planner.database.exercise_log.ExerciseLog;
 import com.example.workout_planner.database.exercise_log.ExerciseLogDao;
 import com.example.workout_planner.database.workout_plan.WorkoutPlan;
-import com.example.workout_planner.database.WorkoutPlannerDatabase;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 

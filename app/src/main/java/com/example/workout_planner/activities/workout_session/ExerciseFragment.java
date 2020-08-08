@@ -103,10 +103,8 @@ public class ExerciseFragment extends Fragment {
      */
     public ArrayList<ExerciseLog> getExerciseLogs() {
         ArrayList<ExerciseLog> exerciseLogs = new ArrayList<>();
-        for (int i = 0; i < rvSets.getChildCount(); i++) {
-            RecyclerView.ViewHolder holder =
-                    rvSets.getChildViewHolder(rvSets.getChildAt(i));
-            SetsAdapter.SetsViewHolder setsViewHolder = (SetsAdapter.SetsViewHolder) holder;
+        SetsAdapter setsAdapter = (SetsAdapter) rvSets.getAdapter();
+        for(SetsAdapter.SetsViewHolder setsViewHolder : setsAdapter.getAllViewHolders()){
             String weight = setsViewHolder.etWeight.getText().toString();
             String repsOrTime = setsViewHolder.etRepsOrTime.getText().toString();
             if(!(weight.isEmpty() || repsOrTime.isEmpty())){
@@ -130,6 +128,7 @@ public class ExerciseFragment extends Fragment {
 
         private Context context;
         private List<Integer> sets;
+        private ArrayList<SetsViewHolder> viewHolders = new ArrayList<>();
 
         public SetsAdapter(Context context, int noSets) {
             this.context = context;
@@ -146,12 +145,18 @@ public class ExerciseFragment extends Fragment {
         public SetsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(context);
             View view = inflater.inflate(R.layout.item_set, parent, false);
-            return new SetsViewHolder(view);
+            SetsViewHolder setsViewHolder = new SetsViewHolder(view);
+            viewHolders.add(setsViewHolder);
+            return setsViewHolder;
         }
 
         @Override
         public void onBindViewHolder(@NonNull SetsViewHolder holder, int position) {
             holder.tvSetNumber.setText(MessageFormat.format("{0}.", position + 1));
+        }
+
+        public ArrayList<SetsViewHolder> getAllViewHolders(){
+            return viewHolders;
         }
 
         public void addSet() {
