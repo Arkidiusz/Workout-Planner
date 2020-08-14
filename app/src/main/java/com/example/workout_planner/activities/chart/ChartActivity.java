@@ -22,6 +22,7 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import org.threeten.bp.LocalDate;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -101,7 +102,7 @@ public class ChartActivity extends AppCompatActivity {
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setTextSize(12f);
         xAxis.setGranularity(1f);
-        xAxis.setLabelCount(4);
+        xAxis.setLabelCount(4, true);
 
         YAxis axisLeft = lineChart.getAxisLeft();
         axisLeft.setValueFormatter(new KgFormatter());
@@ -126,7 +127,7 @@ public class ChartActivity extends AppCompatActivity {
     public static class KgFormatter extends ValueFormatter{
         @Override
         public String getFormattedValue(float value) {
-            return value + "kg";
+            return new DecimalFormat("0.00").format(value) + "kg";
         }
     }
 }

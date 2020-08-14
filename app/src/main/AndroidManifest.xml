@@ -10,7 +10,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="com.example.workout_planner.activities.chart.ChartActivity"
-            android:label="1RM chart" />
+            android:label="1RM chart"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.example.workout_planner.activities.logs.LogsActivity"
             android:label="Exercise Logs"
