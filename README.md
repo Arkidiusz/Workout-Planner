@@ -1,4 +1,8 @@
-# WorkoutPlanner  
+# WorkoutPlanner
+
+A simple android app for planning workouts.
+**Mnimum SDK version: 23**
+
 ## Planning a workout session  
 Add exercises to a plan, rearrange them and set exercise parameters  
 
