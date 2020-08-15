@@ -1,2 +1,9 @@
-Record your workout plans and track the progress of your workout.
-![Image](https://github.com/Arkidiusz/WorkoutPlanner/blob/master/Screenshots/add_exercise.png =100x20)
+# WorkoutPlanner
+##Plan your workout session
+![Image](https://github.com/Arkidiusz/WorkoutPlanner/blob/master/Screenshots/plan_workout.png)
+
+##Record your performence during session
+![Image](https://github.com/Arkidiusz/WorkoutPlanner/blob/master/Screenshots/workout_session.png)
+
+##Browse your workout logs
+![Image](https://github.com/Arkidiusz/WorkoutPlanner/blob/master/Screenshots/logs.png)
